@@ -30,32 +30,3 @@ function App() {
 
 export default App;
 
-// function App() {
-//   return (
-//     <I18nextProvider i18n={i18n}>
-//         <Router>
-//         <Routes>
-//           <Route path="/" element={<HomePage />} />
-//           <Route path="/ourcats" element={<Ourcats />} />
-//         </Routes>
-//         </Router>
-//         {/* <HomePage/> */}
-//     </I18nextProvider>
-//   );
-// }
-
-// export default App;
-
-
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//   },
-// ]);
-
-// ReactDOM.createRoot(document.getElementById("root")).render(
-//   <React.StrictMode>
-//     <RouterProvider router={router} />
-//   </React.StrictMode>
-// );

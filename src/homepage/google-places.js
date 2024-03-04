@@ -19,10 +19,9 @@
 
              plugin.init = function() {
                 plugin.settings = $.extend({}, defaults, options);
-                $element.html(""); // create a plug for google to load data into
+                $element.html(""); 
                 initialize_place(function(place){
                   plugin.place_data = place;
-                  // render specified sections
                   if(plugin.settings.render.indexOf('reviews') > -1){
                     renderReviews(plugin.place_data.reviews);
                     if(!!plugin.settings.rotateTime) {
@@ -52,8 +51,7 @@
                     ray.sort(function(a, b){
                       var keyA = new Date(a.time),
                           keyB = new Date(b.time);
-                      // Compare the 2 dates
-                      if(keyA > keyB) return -1; // For descending order
+                      if(keyA > keyB) return -1; 
                       if(keyA < keyB) return 1;
                       return 0;
                     });
@@ -64,7 +62,7 @@
                   for (var i = reviews.length -1; i >= 0; i--) {
                     var filteredReviews = reviews.filter(function(review) {
                         return review.rating >= plugin.settings.min_rating;
-                      });                  // make sure the row_count is not greater than available records
+                      });                 
                   row_count = (row_count > reviews.length-1)? reviews.length -1 : row_count;
                   for (var i = row_count; i >= 0; i--) {
                     var stars = renderStars(reviews[i].rating);
@@ -93,12 +91,10 @@
                 var renderStars = function(rating){
                   var stars = "";
         
-                  // fill in gold stars
                   for (var i = 0; i < rating; i++) {
                     stars = stars+"";
                   }
 
-          // fill in empty stars
           if(rating < 5){
             for (var i = 0; i < (5 - rating); i++) {
               stars = stars+"";
