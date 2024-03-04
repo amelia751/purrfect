@@ -10,8 +10,6 @@ import Ourcats from './Ourcats';
 import Review from './Review';
 import FAQ from './FAQ';
 
-require('dotenv').config();
-
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
   { path: "/concept", element: <Concept /> },
