@@ -14,7 +14,7 @@ const BasicInfo = ({ title, description }) => {
 function StoreInfo() {
   const { t } = useTranslation(); 
 
-  const iframeCode = `<iframe width="100%" height="400" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?q=place_id:Eks4IEhvYSBUcsOgLCBQaMaw4budbmcgNywgUGjDuiBOaHXhuq1uLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZpZXRuYW0iMBIuChQKEgkPxXsCzyh1MRErI-rB-gjFwBAIKhQKEgnLMnoCzyh1MREjRlCpsIkyEA&key=AIzaSyCKv1bxzW-8s1fbtZ8BeU_Q8RizRyJVcik"></iframe>`;
+  const iframeCode = `<iframe width="100%" height="400" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?q=place_id:Eks4IEhvYSBUcsOgLCBQaMaw4budbmcgNywgUGjDuiBOaHXhuq1uLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZpZXRuYW0iMBIuChQKEgkPxXsCzyh1MRErI-rB-gjFwBAIKhQKEgnLMnoCzyh1MREjRlCpsIkyEA&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}"></iframe>`;
 
   return (
     <div className="store-info">
