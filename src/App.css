@@ -1,0 +1,16 @@
+
+.app {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 2; /* Ensure the header is above other content */
+}
+
+.banner {
+  position: relative;
+  z-index: 1; /* Ensure the banner is behind the header */
+}

@@ -1,0 +1,140 @@
+.cats-detail{
+    display: flex;
+    width: 100%;
+    padding: 50px;
+    flex-direction: row; 
+    align-items: stretch;
+}
+
+.cats-detail:nth-child(even) {
+    background-color: #fbf2f2;
+}
+
+.cats-detail:nth-child(odd) {
+    background-color: white;
+}
+
+.cat-main-profile{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cat-profile{
+    height: 280px;
+    width: 280px;
+    overflow: hidden;
+}
+
+.cat-main-profile h1{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    color: #756659;
+    line-height: 1; 
+}
+.cat-main-profile p{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: normal;
+    font-weight: 450;
+    font-size: 18px;
+    color: #756659;
+    line-height: 0;
+
+}
+
+
+.img-container{
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.gallery-img-container {
+    display: flex; 
+    box-sizing: border-box;
+    max-height: 60vh;  
+    width: auto;
+    justify-content: center;
+    gap: 15px;
+    overflow: hidden;
+  }
+
+  .gallery-img-container img {
+    max-width: 100%;
+    max-height: 60vh; 
+    object-fit: contain; 
+    width: auto;
+    height: 100%; 
+}
+
+.cat-gallery{
+    max-width: 65%;
+}
+
+@media (max-width: 1400px) {
+    .cats-detail{
+        padding: 20px;
+    }
+
+    .cat-main-profile{
+        width: 32%;
+    }
+
+    .cat-profile{
+        height: 200px;
+        width: 200px;
+    }
+
+}
+
+
+  @media (max-width: 525px) {
+
+
+
+    .cats-detail h1{
+      font-size: 15px;
+      line-height: 20px;
+      top: 10%
+
+  }
+
+  .cats-detail p{
+      font-size: 15px;
+      line-height: 0;
+  }
+
+  .cat-profile{
+    height: 150px;
+    width: 150px;
+}
+.gallery-img-container {
+    max-height: 38vh;  
+  }
+
+  .gallery-img-container img {
+    max-height: 38vh; 
+}
+
+}
+
+@media (max-width: 350px) {
+
+    .cat-profile{
+        height: 120px;
+        width: 120px;
+    }
+
+
+  .cats-detail p{
+      font-size: 12px;
+      line-height: 0;
+  }
+
+
+}
+  

@@ -1,0 +1,55 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    overflow-x: hidden; 
+}
+.banner-container {
+    position: relative;
+    width: 100%; 
+}
+
+.ourcats-banner {
+    width: 100%;
+    height: auto; 
+    display: block; 
+}
+
+.slogan-container h1{
+    position: absolute;
+    border-radius: 8px;
+    top: 25%; 
+    left: 25%; 
+    transform: translate(-50%, -50%); 
+    text-align: center; 
+    width: 90%; 
+    max-width: 700px; 
+    font: Ubuntu;
+    color: #756659;
+    font-weight: 600px;
+    font-size: 80px;
+}
+
+
+  @media (max-width: 900px) {
+
+    .slogan-container h1 {
+      font-size: 60px;
+      line-height: 45px;
+
+  }
+}
+
+@media (max-width: 600px) {
+
+    .slogan-container h1 {
+      font-size: 30px;
+      line-height: 45px;
+
+  }
+}
+
+
+
+
+

@@ -1,0 +1,139 @@
+.rules{
+    margin-top: 30px;
+    padding-bottom: 25px;
+    padding-right: 50px;
+    padding-left: 50px;
+    text-align: center;
+    display: flex;
+    gap: 20px;
+}
+
+.rules h1{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: normal;
+    font-weight: 450;
+    font-size: 48px;
+    line-height: 55px;
+    color: #756659;
+}
+
+.rules-container{
+    display: flex;
+    display: inline-block;
+    align-items: center;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+
+.rules-img{
+    height: 200px;
+}
+.rules p{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: normal;
+    font-weight: 450;
+    font-size: 18px;
+    line-height: 25px;
+    color: #756659;
+    text-align: center;
+    white-space: pre;
+
+}
+
+.hykhidd-container{
+    margin-left: 20px;
+    width: 30%;
+    text-align: center;
+}
+
+.hykhidd{
+    border-radius: 10px;
+}
+.rules h2{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: normal;
+    font-weight: 450;
+    font-size: 18px;
+    line-height: 25px;
+    color: #756659;
+    text-align: center;
+}
+
+@media (max-width: 1200px) {
+
+    .rules{
+        display: block;
+  }
+
+  .rules{
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    text-align: center;
+    align-items: center;
+  }
+
+  .hykhidd-container{
+    width: 60%;
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 850px) {
+
+    .rules{
+        padding-right: 0px;
+        padding-left: 0px;
+  }
+
+  .hykhidd-container{
+    width: 80%;
+  }
+}
+
+@media (max-width: 740px) {
+
+    .rules-frame{
+        padding-right: 0px;
+        padding-left: 0px;
+  }
+
+  .rules-container{
+    display: flex;
+    gap: 10px;
+    justify-content: center; 
+    text-align: center;
+    align-items: center;
+  }
+
+}
+
+@media (max-width: 525px) {
+    .rules h1{
+        font-size: 30px;
+        line-height: 45px;
+    }
+
+    .rules-img{
+        height: 150px;
+    }
+
+    .rules p{
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+}
+
+@media (max-width: 525px) {
+    .rules-img{
+        height: 140px;
+    }
+
+    .rules p{
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+}
