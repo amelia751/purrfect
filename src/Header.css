@@ -16,7 +16,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 25px; 
-  background-color: #f3cfce;
+  background-color: transparent;
   color: #756659;
   border: none;
   cursor: pointer;
