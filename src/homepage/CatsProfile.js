@@ -29,6 +29,9 @@ import TepProfile from '../album/ourcats/profile/tep0.png';
 import GungProfile from '../album/ourcats/profile/gung0.png';
 import BongProfile from '../album/ourcats/profile/bong0.png';
 import BongsProfile from '../album/ourcats/profile/bongs0.png';
+import BowProfile from '../album/ourcats/profile/bow0.png';
+import ComProfile from '../album/ourcats/profile/com0.png';
+import MeProfile from '../album/ourcats/profile/me0.png';
 
 const CatInfo = ({ profile, gender, name, speice, DOB }) => {
 
@@ -83,6 +86,9 @@ function CatsProfile() {
         <CatInfo profile={GungProfile} gender="male" name="Gừng (Ginger)" speice="Abyssinian" DOB="Born Feb 28, 2023" />
         <CatInfo profile={BongProfile} gender="female" name="Bông (Cotton)" speice="Kinkalow" DOB="Born Feb 2, 2023" />
         <CatInfo profile={BongsProfile} gender="female" name="Bống (Goby)" speice="Shorthair Oriental" DOB="Born Sep 1, 2022" />
+        <CatInfo profile={BowProfile} gender="female" name="Bơ (Butter)" speice="Golden" DOB="Born April 4, 2023" />
+        <CatInfo profile={ComProfile} gender="male" name="Cơm (Rice)" speice="American Curl" DOB="Born May 19, 2023" />
+        <CatInfo profile={MeProfile} gender="male" name="Mè (Sesame)" speice="British Longhair" DOB="Born May 6, 2023" />
 
     </div>
 )}

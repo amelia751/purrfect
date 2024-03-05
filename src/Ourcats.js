@@ -30,6 +30,11 @@ import GauProfile from './album/ourcats/profile/gau0.png';
 import TitProfile from './album/ourcats/profile/tit0.png';
 import TepProfile from './album/ourcats/profile/tep0.png';
 import GungProfile from './album/ourcats/profile/gung0.png';
+import BongProfile from './album/ourcats/profile/bong0.png';
+import BongsProfile from './album/ourcats/profile/bongs0.png';
+import BowProfile from './album/ourcats/profile/bow0.png';
+import ComProfile from './album/ourcats/profile/com0.png';
+import MeProfile from './album/ourcats/profile/me0.png';
 
 const importImage = async (folderName, imageId) => {
   try {
@@ -67,9 +72,11 @@ const catsInfo = [
   { name: 'Tit', fullname: 'Tít (Sleepy)', profile: TitProfile, gender: 'female', species: 'Persian', DOB: 'Born Jan 28, 2022', imageIds: ['tit1', 'tit2','tit3'] },
   { name: 'Tep', fullname: 'Tép (Baby Shrimp)', profile: TepProfile, gender: 'female', species: 'Munchkin', DOB: 'Born Jan 16, 2023', imageIds: ['tep1', 'tep2'] },
   { name: 'Gung', fullname: 'Gừng (Ginger)', profile: GungProfile, gender: 'male', species: 'Abyssinian', DOB: 'Born Feb 28, 2023', imageIds: ['gung1'] },
-  { name: 'Bong', fullname: 'Bông (Cotton)', profile: GungProfile, gender: 'female', species: 'Kinkalow', DOB: 'Born Feb 2, 2023', imageIds: ['bong1','bong2','bong3','bong4','bong5','bong6','bong7','bong8','bong9'] },
-  { name: 'Bongs', fullname: 'Bống (Goby)', profile: GungProfile, gender: 'female', species: 'Shorthair Oriental', DOB: 'Born Sep 1, 2022', imageIds: ['bongs1','bongs2','bongs3','bongs4'] },
-
+  { name: 'Bong', fullname: 'Bông (Cotton)', profile: BongProfile, gender: 'female', species: 'Kinkalow', DOB: 'Born Feb 2, 2023', imageIds: ['bong1','bong2','bong3','bong4','bong5','bong6','bong7','bong8','bong9'] },
+  { name: 'Bongs', fullname: 'Bống (Goby)', profile: BongsProfile, gender: 'female', species: 'Shorthair Oriental', DOB: 'Born Sep 1, 2022', imageIds: ['bongs1','bongs2','bongs3','bongs4'] },
+  { name: 'Bow', fullname: 'Bơ (Butter)', profile: BowProfile, gender: 'female', species: 'Golden', DOB: 'Born April 4, 2023', imageIds: ['bow1','bow2']},
+  { name: 'Com', fullname: 'Cơm (Rice)', profile: ComProfile, gender: 'male', species: 'American Curl', DOB: 'Born May 19, 2023', imageIds: ['com1','com2','com3','com4','com5','com6','com7','com8','com9'] },
+  { name: 'Me', fullname: 'Mè (Sesame)', profile: MeProfile, gender: 'male', species: 'British Longhair', DOB: 'Born May 6, 2023', imageIds: ['me1','me2','me3','me4'] },
 ]
 
 function Ourcats() {
