@@ -35,6 +35,10 @@ import BongsProfile from './album/ourcats/profile/bongs0.png';
 import BowProfile from './album/ourcats/profile/bow0.png';
 import ComProfile from './album/ourcats/profile/com0.png';
 import MeProfile from './album/ourcats/profile/me0.png';
+import SocProfile from './album/ourcats/profile/soc0.png';
+import DauProfile from './album/ourcats/profile/dau0.png';
+import TamProfile from './album/ourcats/profile/tam0.png';
+import CamProfile from './album/ourcats/profile/cam0.png';
 
 const importImage = async (folderName, imageId) => {
   try {
@@ -47,9 +51,9 @@ const importImage = async (folderName, imageId) => {
 };
 
 const catsInfo = [
-  { name: 'Mon', fullname: 'Mon', profile: MonProfile, gender: 'male', species: 'Ragdoll', DOB: 'Born Dec 19, 2020', imageIds: ['mon1', 'mon2', 'mon3', 'mon4', 'mon5', 'mon6', 'mon7'] },
+  { name: 'Mon', fullname: 'Mon', profile: MonProfile, gender: 'male', species: 'Ragdoll', DOB: 'Born Dec 19, 2020', imageIds: ['mon1', 'mon2', 'mon3', 'mon4', 'mon5', 'mon6', 'mon7','mon8','mon9','mon10','mon11','mon12','mon13','mon14','mon15'] },
   { name: 'Xiu', fullname: 'Xíu (Little)', profile: XiuProfile, gender: 'male', species: 'Sphynx', DOB: 'Born Mar 16, 2022', imageIds: ['xiu1', 'xiu2', 'xiu3', 'xiu4', 'xiu5', 'xiu6', 'xiu7', 'xiu8', 'xiu9', 'xiu10', 'xiu11'] },
-  { name: 'Xam', fullname: 'Xám (Grey)',profile: XamProfile, gender: 'male', species: 'British Shorthair', DOB: 'Born Jun 7, 2020', imageIds: ['xam1', 'xam2', 'xam3', 'xam4', 'xam5', 'xam6', 'xam7','xam8'] },
+  { name: 'Xam', fullname: 'Xám (Grey)',profile: XamProfile, gender: 'male', species: 'British Shorthair', DOB: 'Born Jun 7, 2020', imageIds: ['xam1', 'xam2', 'xam3', 'xam4', 'xam5', 'xam6', 'xam7','xam8','xam9','xam10','xam11','xam12','xam13'] },
   { name: 'Quyt', fullname: 'Quýt (Tangerine)', profile: QuytProfile, gender: 'female', species: 'Kinkalow', DOB: 'Born Aug 16, 2022', imageIds: ['quyt1', 'quyt2', 'quyt3', 'quyt4', 'quyt5', 'quyt6', 'quyt7'] },
   { name: 'Bap', fullname: 'Bắp (Corny)', profile: BapProfile, gender: 'female', species: 'Munchkin', DOB: 'Born Aug 1, 2021', imageIds: ['bap1', 'bap2', 'bap3', 'bap4', 'bap5', 'bap6', 'bap7', 'bap8', 'bap9', 'bap10', 'bap11','bap12'] },
   { name: 'Ho', fullname: 'Hổ (Tiger)', profile: HoProfile, gender: 'male', species: 'Toyger', DOB: 'Born Jul 4, 2023', imageIds: ['ho1', 'ho2'] },
@@ -77,6 +81,11 @@ const catsInfo = [
   { name: 'Bow', fullname: 'Bơ (Butter)', profile: BowProfile, gender: 'female', species: 'Golden', DOB: 'Born April 4, 2023', imageIds: ['bow1','bow2']},
   { name: 'Com', fullname: 'Cơm (Rice)', profile: ComProfile, gender: 'male', species: 'American Curl', DOB: 'Born May 19, 2023', imageIds: ['com1','com2','com3','com4','com5','com6','com7','com8','com9'] },
   { name: 'Me', fullname: 'Mè (Sesame)', profile: MeProfile, gender: 'male', species: 'British Longhair', DOB: 'Born May 6, 2023', imageIds: ['me1','me2','me3','me4'] },
+  { name: 'Soc', fullname: 'Sóc (Squirrel)', profile: SocProfile, gender: 'female', species: 'Toyger', DOB: 'Born May 6, 2023', imageIds: ['soc1','soc2','soc3','soc4'] },
+  { name: 'Dau', fullname: 'Đậu (Bean)', profile: DauProfile, gender: 'male', species: 'Brown Bengal', DOB: 'Born April 18, 2023', imageIds: ['dau1','dau2','dau3','dau4'] },
+  { name: 'Tam', fullname: 'Tấm (Grain)', profile: TamProfile, gender: 'female', species: 'Calico', DOB: 'Born March 15, 2023', imageIds: ['tam1','tam2','tam3','tam4'] },
+  { name: 'Cam', fullname: 'Cám (Bran)', profile: CamProfile, gender: 'female', species: 'Calico', DOB: 'Born March 15, 2023', imageIds: ['cam1','cam2','cam3','cam4'] },
+
 ]
 
 function Ourcats() {
