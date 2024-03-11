@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css';
-import FooterImage from './Footer.png';
+import FooterImage from './footer.png';
 import InstaIcon from './instagram.png';
 import FBIcon from './facebook.png'
 import TiktokIcon from './tiktok.png'
