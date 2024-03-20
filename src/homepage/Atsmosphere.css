@@ -63,14 +63,14 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #999; /* Inactive color */
+    background-color: #999; 
     margin: 0 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Add transition for smooth color change */
+    transition: background-color 0.3s ease; 
   }
   
   .image-circle.active {
-    background-color: #333; /* Active color */
+    background-color: #333; 
   }
 
   @media (max-width: 1600px) {

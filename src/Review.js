@@ -147,7 +147,7 @@ function Review() {
 
 export default Review
 
-// Quota limit on API free plan ...
+//I already wrote the function to call for Google Maps API, but there is limit on the API free plan ... So I thought it should be more economical just copy paste the customers' reviews :)
 // import React, { useEffect, useState } from 'react';
 // import { Loader } from '@googlemaps/js-api-loader';
 // import { useTranslation } from 'react-i18next';

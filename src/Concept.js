@@ -26,7 +26,6 @@ function Concept() {
 
         window.addEventListener('resize', handleResize);
 
-        // Set the initial value
         handleResize();
 
         return () => {
