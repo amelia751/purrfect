@@ -93,7 +93,6 @@ function CatsProfile() {
         <CatInfo profile={BowProfile} gender="female" name="Bơ (Butter)" speice="Golden" DOB="Born April 4, 2023" />
         <CatInfo profile={ComProfile} gender="male" name="Cơm (Rice)" speice="American Curl" DOB="Born May 19, 2023" />
         <CatInfo profile={MeProfile} gender="male" name="Mè (Sesame)" speice="British Longhair" DOB="Born May 6, 2023" />
-        <CatInfo profile={MeProfile} gender="male" name="Mè (Sesame)" speice="British Longhair" DOB="Born May 6, 2023" />
         <CatInfo profile={SocProfile} gender="female" name="Sóc (Squirrel)" speice="Toyger" DOB="Born May 6, 2023" />
         <CatInfo profile={DauProfile} gender="male" name="Đậu (Bean)" speice="Brown Bengal" DOB="Born April 18, 2023" />
         <CatInfo profile={TamProfile} gender="female" name="Tấm (Grain)" speice="Calico" DOB="Born March 15, 2023" />
