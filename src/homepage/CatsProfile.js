@@ -28,7 +28,7 @@ import TitProfile from '../album/ourcats/profile/tit0.png';
 import TepProfile from '../album/ourcats/profile/tep0.png';
 import GungProfile from '../album/ourcats/profile/gung0.png';
 import BongProfile from '../album/ourcats/profile/bong0.png';
-import BongsProfile from '../album/ourcats/profile/bongs0.png';
+import MocProfile from '../album/ourcats/profile/moc0.png';
 import BowProfile from '../album/ourcats/profile/bow0.png';
 import ComProfile from '../album/ourcats/profile/com0.png';
 import MeProfile from '../album/ourcats/profile/me0.png';
@@ -36,6 +36,8 @@ import SocProfile from '../album/ourcats/profile/soc0.png';
 import DauProfile from '../album/ourcats/profile/dau0.png';
 import TamProfile from '../album/ourcats/profile/tam0.png';
 import CamProfile from '../album/ourcats/profile/cam0.png';
+import GonProfile from '../album/ourcats/profile/gon0.png';
+import TotProfile from '../album/ourcats/profile/tot0.png';
 
 const CatInfo = ({ profile, gender, name, speice, DOB }) => {
 
@@ -89,8 +91,10 @@ function CatsProfile() {
         <CatInfo profile={TepProfile} gender="female" name="Tép (Baby Shrimp)" speice="Munchkin" DOB="Born Jan 16, 2023" />
         <CatInfo profile={GungProfile} gender="male" name="Gừng (Ginger)" speice="Abyssinian" DOB="Born Feb 28, 2023" />
         <CatInfo profile={BongProfile} gender="female" name="Bông (Cotton)" speice="Kinkalow" DOB="Born Feb 2, 2023" />
-        <CatInfo profile={BongsProfile} gender="female" name="Bống (Goby)" speice="Shorthair Oriental" DOB="Born Sep 1, 2022" />
+        <CatInfo profile={TotProfile} gender="male" name="Tót (Tok)" speice="Shorthair Oriental" DOB="Born June 6, 2023" />
+        <CatInfo profile={MocProfile} gender="male" name="Mốc (Moldy)" speice="Shorthair Oriental" DOB="Born March 15, 2024" />
         <CatInfo profile={BowProfile} gender="female" name="Bơ (Butter)" speice="Golden" DOB="Born April 4, 2023" />
+        <CatInfo profile={GonProfile} gender="male" name="Gôn (Gold)" speice="Golden" DOB="Born June 9, 2023" />
         <CatInfo profile={ComProfile} gender="male" name="Cơm (Rice)" speice="American Curl" DOB="Born May 19, 2023" />
         <CatInfo profile={MeProfile} gender="male" name="Mè (Sesame)" speice="British Longhair" DOB="Born May 6, 2023" />
         <CatInfo profile={SocProfile} gender="female" name="Sóc (Squirrel)" speice="Toyger" DOB="Born May 6, 2023" />
