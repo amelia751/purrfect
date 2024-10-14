@@ -80,7 +80,7 @@ const catsInfo = [
   { name: 'Tep', fullname: 'Tép (Baby Shrimp)', profile: TepProfile, gender: 'female', species: 'Munchkin', DOB: 'Born Jan 16, 2023', imageIds: ['tep1', 'tep2'] },
   { name: 'Gung', fullname: 'Gừng (Ginger)', profile: GungProfile, gender: 'male', species: 'Abyssinian', DOB: 'Born Feb 28, 2023', imageIds: ['gung1'] },
   { name: 'Bong', fullname: 'Bông (Cotton)', profile: BongProfile, gender: 'female', species: 'Kinkalow', DOB: 'Born Feb 2, 2023', imageIds: ['bong1','bong2','bong3','bong4','bong5','bong6','bong7','bong8','bong9'] },
-  { name: 'Tot', fullname: 'Tót (Tok)', profile: MocProfile, gender: 'male', species: 'Shorthair Oriental', DOB: 'Born June 6, 2023', imageIds: ['tot1','tot2','tot3','tot4'] },
+  { name: 'Tot', fullname: 'Tót (Tok)', profile: TotProfile, gender: 'male', species: 'Shorthair Oriental', DOB: 'Born June 6, 2023', imageIds: ['tot1','tot2','tot3','tot4'] },
   { name: 'Moc', fullname: 'Mốc (Moldy)', profile: MocProfile, gender: 'male', species: 'Shorthair Oriental', DOB: 'Born March 15, 2024', imageIds: ['moc1','moc2','moc3','moc4'] },
   { name: 'Bow', fullname: 'Bơ (Butter)', profile: BowProfile, gender: 'female', species: 'Golden', DOB: 'Born April 4, 2023', imageIds: ['bow1','bow2','bow3','bow4','bow5','bow6','bow7']},
   { name: 'Gon', fullname: 'Gôn (Gold)', profile: GonProfile, gender: 'male', species: 'Golden', DOB: 'Born June 9, 2023', imageIds: ['gon1','gon2','gon3','gon4','gon5','gon6','gon7']},
