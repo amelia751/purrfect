@@ -8,7 +8,7 @@ import { DownOutlined } from '@ant-design/icons';
 import SpaIcon from '@mui/icons-material/Spa';
 import PetsIcon from '@mui/icons-material/Pets';
 import RateReviewIcon from '@mui/icons-material/RateReview';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutlineOutlined';
 import { initializeI18n } from './i18n';
 import fatcatimg from './fat-cat.png';
 
