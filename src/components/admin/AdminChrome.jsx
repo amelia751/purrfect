@@ -43,7 +43,7 @@ function NavButtons({ tab, onTab, onNavigate }) {
 
 export function AdminSidebar({ tab, onTab, email, onSignOut }) {
   return (
-    <aside className="hidden w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar p-5 lg:flex">
+    <aside className="hidden h-full w-64 shrink-0 flex-col overflow-y-auto border-r border-sidebar-border bg-sidebar p-5 lg:flex">
       <div className="mb-6 flex items-center gap-3 px-1">
         <img src="/purrfect-logo-white.png" alt="" className="size-10 object-contain" />
         <div>
@@ -67,7 +67,7 @@ export function AdminSidebar({ tab, onTab, email, onSignOut }) {
 export function AdminTopbar({ tab, onTab, email, onSignOut, menuOpen, onMenuOpen }) {
   const current = ADMIN_NAV.find((item) => item.id === tab);
   return (
-    <header className="flex items-center justify-between gap-3 border-b border-border bg-card/80 px-4 py-3 backdrop-blur lg:px-8">
+    <header className="flex shrink-0 items-center justify-between gap-3 border-b border-border bg-card/80 px-4 py-3 backdrop-blur lg:px-8">
       <div className="flex items-center gap-3">
         <Button variant="outline" size="icon" className="lg:hidden" onClick={() => onMenuOpen(true)}>
           <Menu />
@@ -85,7 +85,7 @@ export function AdminTopbar({ tab, onTab, email, onSignOut, menuOpen, onMenuOpen
         </Button>
       </div>
       <Sheet open={menuOpen} onOpenChange={onMenuOpen}>
-        <SheetContent side="left" className="w-72 bg-sidebar">
+        <SheetContent side="left" className="w-72 overflow-y-auto bg-sidebar">
           <SheetHeader>
             <SheetTitle>Admin</SheetTitle>
           </SheetHeader>

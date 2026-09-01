@@ -96,7 +96,7 @@ export function FaqPanel({ faq, setFaq }) {
           <SelectTrigger className="w-full sm:w-64">
             <SelectValue placeholder="Add to section" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent position="popper" className="z-[90]">
             {faq.sections.map((section) => (
               <SelectItem key={section.id} value={section.id}>
                 {section.title?.en || section.id}

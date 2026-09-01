@@ -69,7 +69,7 @@ export function ReviewsPanel({ reviews, setReviews }) {
                   <SelectTrigger className="w-full">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent position="popper" className="z-[90]">
                     {[5, 4, 3, 2, 1].map((star) => (
                       <SelectItem key={star} value={String(star)}>
                         {star} star{star === 1 ? '' : 's'}

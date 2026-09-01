@@ -115,7 +115,7 @@ export function PhotoLibrary({ cats, setCats }) {
           <SelectTrigger className="w-full sm:w-64">
             <SelectValue placeholder="Filter by cat" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent position="popper" className="z-[90]">
             <SelectItem value="all">All cats</SelectItem>
             {cats.map((cat) => (
               <SelectItem key={cat.id} value={cat.id}>
@@ -139,7 +139,7 @@ export function PhotoLibrary({ cats, setCats }) {
                 <Badge variant="secondary">{item.catName}</Badge>
                 {item.isProfile ? <Badge>Profile</Badge> : null}
               </div>
-              <figcaption className="absolute inset-x-0 bottom-0 flex justify-end gap-1 bg-black/45 p-2 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+              <figcaption className="absolute inset-x-0 bottom-0 flex justify-end gap-1 bg-black/45 p-2">
                 <Button type="button" size="icon-xs" variant="secondary" disabled={item.isProfile} onClick={() => setProfile(item)}>
                   <Star />
                 </Button>

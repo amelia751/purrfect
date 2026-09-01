@@ -65,7 +65,7 @@ export function CatsPanel({ cats, setCats }) {
   return (
     <div className="grid gap-6">
       <Tabs defaultValue="cats">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="sticky top-0 z-10 -mx-4 mb-1 flex flex-col gap-3 bg-background/95 px-4 py-3 backdrop-blur sm:flex-row sm:items-center sm:justify-between lg:-mx-8 lg:px-8">
           <TabsList>
             <TabsTrigger value="cats">Cats</TabsTrigger>
             <TabsTrigger value="photos">Photo library</TabsTrigger>

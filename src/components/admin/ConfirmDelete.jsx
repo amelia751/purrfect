@@ -23,7 +23,7 @@ export function ConfirmDelete({
 }) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent>
+        <AlertDialogContent className="max-h-[min(90dvh,40rem)] overflow-y-auto">
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>

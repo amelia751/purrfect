@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { AdminSidebar, AdminTopbar } from './admin/AdminChrome';
 import { AdminLogin } from './admin/AdminLogin';
@@ -27,8 +27,16 @@ function AdminPage() {
   const [faq, setFaq] = useState({ sections: [], items: [] });
   const [reviews, setReviews] = useState([]);
   const [site, setSite] = useState(null);
+  const mainRef = useRef(null);
 
   useEffect(() => watchAdminUser(setUser), []);
+
+  useEffect(() => {
+    if (!user) return undefined;
+    const html = document.documentElement;
+    html.classList.add('admin-active');
+    return () => html.classList.remove('admin-active');
+  }, [user]);
 
   useEffect(() => {
     const fromHash = window.location.hash.replace('#', '');
@@ -64,6 +72,7 @@ function AdminPage() {
   const goTab = (id) => {
     setTab(id);
     window.location.hash = id;
+    mainRef.current?.scrollTo({ top: 0 });
   };
 
   const signIn = async () => {
@@ -89,9 +98,9 @@ function AdminPage() {
 
   return (
     <TooltipProvider>
-      <div className="admin-root flex min-h-dvh bg-background font-sans text-foreground">
+      <div className="admin-root flex h-dvh max-h-dvh overflow-hidden bg-background font-sans text-foreground">
         <AdminSidebar tab={tab} onTab={goTab} email={user.email} onSignOut={() => signOutAdmin()} />
-        <div className="flex min-w-0 flex-1 flex-col">
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col">
           <AdminTopbar
             tab={tab}
             onTab={goTab}
@@ -100,7 +109,7 @@ function AdminPage() {
             menuOpen={menuOpen}
             onMenuOpen={setMenuOpen}
           />
-          <main className="flex-1 px-4 py-6 lg:px-8">
+          <main ref={mainRef} className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-4 py-6 pb-10 lg:px-8">
             {loading ? (
               <div className="grid gap-4">
                 <Skeleton className="h-10 w-48" />

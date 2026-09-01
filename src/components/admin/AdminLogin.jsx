@@ -7,7 +7,7 @@ import { ADMIN_EMAIL } from '@/lib/auth';
 
 export function AdminLogin({ busy, error, onSignIn }) {
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-background px-4 py-10">
+    <div className="flex min-h-dvh items-center justify-center overflow-y-auto bg-background px-4 py-10">
       <Card className="w-full max-w-md rounded-3xl border-none shadow-[0_16px_40px_rgba(117,102,89,0.12)]">
         <CardHeader className="justify-items-center text-center">
           <img src="/purrfect-logo-white.png" alt="Purrfect Coffee" className="mb-2 size-20 object-contain" />

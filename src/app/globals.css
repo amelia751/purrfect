@@ -99,6 +99,13 @@ body {
   color-scheme: light;
 }
 
+html.admin-active,
+html.admin-active body {
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
 body {
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;

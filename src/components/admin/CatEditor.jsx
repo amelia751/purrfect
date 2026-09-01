@@ -141,15 +141,16 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
   return (
     <>
       <Sheet open={open} onOpenChange={onOpenChange}>
-        <SheetContent className="w-full overflow-y-auto sm:max-w-3xl">
-          <SheetHeader>
+        <SheetContent className="flex h-full w-full flex-col gap-0 overflow-hidden p-0 sm:max-w-3xl">
+          <SheetHeader className="shrink-0 border-b pr-12">
             <SheetTitle>{isNew ? 'Add a cat' : cat.fullname || cat.name}</SheetTitle>
             <SheetDescription>
               Upload a profile photo and gallery, then save. Changes go live on the website after save.
             </SheetDescription>
           </SheetHeader>
 
-          <div className="grid gap-6 px-4 pb-8">
+          <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-4 py-6">
+          <div className="grid gap-6">
             <div className="grid gap-4 md:grid-cols-[180px_1fr]">
               <div className="grid gap-3">
                 <Label>Profile photo</Label>
@@ -182,7 +183,7 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Choose gender" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent position="popper" className="z-[90]">
                         <SelectItem value="male">Male</SelectItem>
                         <SelectItem value="female">Female</SelectItem>
                       </SelectContent>
@@ -224,7 +225,7 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
                         {isProfile ? (
                           <Badge className="absolute top-2 left-2">Profile</Badge>
                         ) : null}
-                        <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-1 bg-black/45 p-2 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+                        <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-1 bg-black/45 p-2">
                           <div className="flex gap-1">
                             <Button type="button" size="icon-xs" variant="secondary" onClick={() => movePhoto(index, -1)} disabled={index === 0}>
                               <ChevronLeft />
@@ -255,16 +256,18 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
               ) : null}
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <Button variant="outline" className="text-destructive" onClick={() => setPendingCatDelete(true)}>
-                <Trash2 />
-                {isNew ? 'Discard' : 'Delete cat'}
-              </Button>
-              <Button className="rounded-full" onClick={save} disabled={saving}>
-                {saving ? <Loader2 className="animate-spin" /> : null}
-                {isNew ? 'Create cat' : 'Save cat'}
-              </Button>
-            </div>
+          </div>
+          </div>
+
+          <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t bg-background px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+            <Button variant="outline" className="text-destructive" onClick={() => setPendingCatDelete(true)}>
+              <Trash2 />
+              {isNew ? 'Discard' : 'Delete cat'}
+            </Button>
+            <Button className="rounded-full" onClick={save} disabled={saving}>
+              {saving ? <Loader2 className="animate-spin" /> : null}
+              {isNew ? 'Create cat' : 'Save cat'}
+            </Button>
           </div>
         </SheetContent>
       </Sheet>
