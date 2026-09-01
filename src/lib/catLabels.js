@@ -9,6 +9,6 @@ export function bornLabel(dob) {
   return text ? `Born ${text}` : '';
 }
 
-export function catMetaItems(gender, species) {
-  return [genderLabel(gender), species].filter(Boolean);
+export function hasCatMeta(gender, species) {
+  return Boolean(genderLabel(gender) || species);
 }

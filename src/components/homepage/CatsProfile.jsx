@@ -3,14 +3,14 @@
 import { useEffect, useState } from 'react';
 import { localCats } from '@/data/cats';
 import { fetchCats } from '@/lib/content';
-import { bornLabel, catMetaItems } from '@/lib/catLabels';
+import { bornLabel, hasCatMeta } from '@/lib/catLabels';
 import FadeImage from '../FadeImage';
+import GenderMark from '../GenderMark';
 import { useReveal } from '../Reveal';
 import './CatsProfile.css';
 
 const CatInfo = ({ profile, gender, name, species, DOB, delay = 0 }) => {
   const [ref, revealClass] = useReveal();
-  const meta = catMetaItems(gender, species);
   const born = bornLabel(DOB);
 
   return (
@@ -19,11 +19,10 @@ const CatInfo = ({ profile, gender, name, species, DOB, delay = 0 }) => {
         <FadeImage className="cat-pics" src={profile} alt={`${name} profile`} optimizeWidth={560} sizes="280px" fit="cover" />
       </div>
       <h3 className="cat-names">{name}</h3>
-      {meta.length ? (
+      {hasCatMeta(gender, species) ? (
         <p className="cat-speices">
-          {meta.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
+          <GenderMark gender={gender} />
+          {species ? <span>{species}</span> : null}
         </p>
       ) : null}
       {born ? <p className="cat-DOBs">{born}</p> : null}

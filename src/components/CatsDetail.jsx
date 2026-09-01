@@ -2,13 +2,13 @@
 
 import ImageCarousel from './ImageCarousel';
 import FadeImage from './FadeImage';
+import GenderMark from './GenderMark';
 import { useReveal } from './Reveal';
-import { bornLabel, catMetaItems } from '@/lib/catLabels';
+import { bornLabel, hasCatMeta } from '@/lib/catLabels';
 import './CatsDetail.css';
 
 function CatsDetail({ profile, gender, name, species, DOB, images, stripe = 'odd', priority = false }) {
   const [ref, revealClass] = useReveal();
-  const meta = catMetaItems(gender, species);
   const born = bornLabel(DOB);
 
   return (
@@ -19,11 +19,10 @@ function CatsDetail({ profile, gender, name, species, DOB, images, stripe = 'odd
         </div>
         <div className="cat-copy">
           <h2 className="cat-name">{name}</h2>
-          {meta.length ? (
+          {hasCatMeta(gender, species) ? (
             <p className="cat-meta">
-              {meta.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
+              <GenderMark gender={gender} />
+              {species ? <span>{species}</span> : null}
             </p>
           ) : null}
           {born ? <p className="cat-dob">{born}</p> : null}

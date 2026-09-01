@@ -1,0 +1,12 @@
+.gender-mark {
+  font-size: 1.2em;
+  vertical-align: middle;
+}
+
+.gender-mark.is-male {
+  color: #3f5f8a;
+}
+
+.gender-mark.is-female {
+  color: #e39aa4;
+}

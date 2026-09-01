@@ -70,13 +70,9 @@
 .cat-meta {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  gap: 0 10px;
-}
-
-.cat-meta span:not(:last-child)::after {
-  content: "·";
-  margin-left: 10px;
+  gap: 6px;
 }
 
 .cat-gallery {
