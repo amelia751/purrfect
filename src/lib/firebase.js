@@ -1,6 +1,7 @@
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || 'AIzaSyCjQgrIn2sBYISEXjOS5oI8TIp-TYldIXE',
@@ -21,4 +22,8 @@ export function getDb() {
 
 export function getFirebaseAuth() {
   return getAuth(getFirebaseApp());
+}
+
+export function getFirebaseStorage() {
+  return getStorage(getFirebaseApp(), `gs://${firebaseConfig.storageBucket}`);
 }

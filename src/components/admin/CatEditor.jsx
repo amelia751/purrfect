@@ -1,0 +1,294 @@
+'use client';
+
+import { useState } from 'react';
+import { ChevronLeft, ChevronRight, Loader2, Star, Trash2 } from 'lucide-react';
+import { toast } from 'sonner';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { Switch } from '@/components/ui/switch';
+import { addCatAdmin, deleteCatAdmin, saveCatAdmin, uniqueCatId } from '@/lib/adminContent';
+import { catPhotoUrl, runAdminAction, sortedPhotos, withRenumberedPhotos } from '@/lib/adminHelpers';
+import { deleteStoredImage, deleteStoredImages, uploadCatImage } from '@/lib/adminStorage';
+import { ImageDropzone } from './ImageDropzone';
+import { TextField } from './fields';
+
+export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }) {
+  const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [removing, setRemoving] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const isNew = Boolean(cat?.isNew);
+
+  const update = (patch) => onChange({ ...cat, ...patch });
+
+  const uploadFiles = async (files, asProfile = false) => {
+    setUploading(true);
+    try {
+      const uploaded = [];
+      for (const file of files) {
+        uploaded.push(await uploadCatImage(file));
+      }
+      const photos = [...sortedPhotos(cat)];
+      uploaded.forEach((photo) => {
+        photos.push({ ...photo, sortOrder: photos.length });
+      });
+      const next = { ...cat, photos: withRenumberedPhotos(photos) };
+      if (asProfile || !catPhotoUrl(cat)) {
+        next.profile = uploaded[0];
+        next.profileUrl = uploaded[0].url;
+      }
+      onChange(next);
+      toast.success(uploaded.length === 1 ? 'Photo uploaded.' : `${uploaded.length} photos uploaded.`);
+    } catch (error) {
+      toast.error(error.message || 'Upload failed.');
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const save = async () => {
+    if (!cat.name?.trim()) {
+      toast.error('Give this cat a name first.');
+      return;
+    }
+    setSaving(true);
+    try {
+      const payload = {
+        slug: cat.id,
+        name: cat.name.trim(),
+        fullname: cat.fullname || cat.name.trim(),
+        gender: cat.gender || '',
+        species: cat.species || '',
+        dob: cat.dob || '',
+        sortOrder: Number(cat.sortOrder) || 0,
+        showOnHome: cat.showOnHome !== false,
+        status: cat.status || 'active',
+        profile: cat.profile || null,
+        profileUrl: cat.profile?.url || cat.profileUrl || '',
+        photos: withRenumberedPhotos(sortedPhotos(cat)),
+      };
+      if (isNew) {
+        await runAdminAction(() => addCatAdmin(cat.id, payload), `${payload.name} added.`);
+        onReplace({ id: cat.id, ...payload });
+      } else {
+        await runAdminAction(() => saveCatAdmin(cat.id, payload), `Saved ${payload.name}.`);
+        onChange({ id: cat.id, ...payload });
+      }
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const removeCat = async () => {
+    setRemoving(true);
+    try {
+      const paths = [cat.profile?.path, ...sortedPhotos(cat).map((photo) => photo.path)];
+      await deleteStoredImages(paths);
+      if (!isNew) await deleteCatAdmin(cat.id);
+      toast.success(`${cat.name || 'Cat'} deleted.`);
+      onReplace(null);
+    } catch (error) {
+      toast.error(error.message || 'Could not delete this cat.');
+    } finally {
+      setRemoving(false);
+      setConfirmDelete(false);
+    }
+  };
+
+  const movePhoto = (index, direction) => {
+    const photos = sortedPhotos(cat);
+    const nextIndex = index + direction;
+    if (nextIndex < 0 || nextIndex >= photos.length) return;
+    const copy = [...photos];
+    [copy[index], copy[nextIndex]] = [copy[nextIndex], copy[index]];
+    update({ photos: withRenumberedPhotos(copy) });
+  };
+
+  const setProfile = (photo) => {
+    update({ profile: photo, profileUrl: photo.url });
+  };
+
+  const removePhoto = async (photo) => {
+    try {
+      await deleteStoredImage(photo.path);
+      const photos = sortedPhotos(cat).filter((item) => item.id !== photo.id);
+      const next = { photos: withRenumberedPhotos(photos) };
+      if (cat.profile?.id === photo.id || cat.profileUrl === photo.url) {
+        const fallback = photos[0] || null;
+        next.profile = fallback;
+        next.profileUrl = fallback?.url || '';
+      }
+      update(next);
+      toast.success('Photo removed.');
+    } catch (error) {
+      toast.error(error.message || 'Could not delete photo.');
+    }
+  };
+
+  if (!cat) return null;
+
+  return (
+    <>
+      <Sheet open={open} onOpenChange={onOpenChange}>
+        <SheetContent className="w-full overflow-y-auto sm:max-w-3xl">
+          <SheetHeader>
+            <SheetTitle>{isNew ? 'Add a cat' : cat.fullname || cat.name}</SheetTitle>
+            <SheetDescription>
+              Upload a profile photo and gallery, then save. Changes go live on the website after save.
+            </SheetDescription>
+          </SheetHeader>
+
+          <div className="grid gap-6 px-4 pb-8">
+            <div className="grid gap-4 md:grid-cols-[180px_1fr]">
+              <div className="grid gap-3">
+                <Label>Profile photo</Label>
+                <div className="overflow-hidden rounded-2xl border bg-muted">
+                  {catPhotoUrl(cat) ? (
+                    <img src={catPhotoUrl(cat)} alt="" className="aspect-square w-full object-cover" />
+                  ) : (
+                    <div className="flex aspect-square items-center justify-center text-sm text-muted-foreground">
+                      No photo yet
+                    </div>
+                  )}
+                </div>
+                <ImageDropzone
+                  compact
+                  multiple={false}
+                  busy={uploading}
+                  label="Replace profile"
+                  onFiles={(files) => uploadFiles(files.slice(0, 1), true)}
+                />
+              </div>
+
+              <div className="grid gap-4">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <TextField id="cat-name" label="Name" value={cat.name} onChange={(name) => update({ name })} />
+                  <TextField id="cat-full" label="Full name" value={cat.fullname} onChange={(fullname) => update({ fullname })} />
+                  <TextField id="cat-species" label="Species" value={cat.species} onChange={(species) => update({ species })} />
+                  <div className="grid gap-2">
+                    <Label>Gender</Label>
+                    <Select value={cat.gender || ''} onValueChange={(gender) => update({ gender })}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Choose gender" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="male">Male</SelectItem>
+                        <SelectItem value="female">Female</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <TextField id="cat-dob" label="Born" value={cat.dob} onChange={(dob) => update({ dob })} placeholder="Born Dec 19, 2020" />
+                  <TextField
+                    id="cat-order"
+                    label="Display order"
+                    type="number"
+                    value={cat.sortOrder}
+                    onChange={(sortOrder) => update({ sortOrder: Number(sortOrder) || 0 })}
+                  />
+                </div>
+                <label className="flex items-center gap-3 text-sm">
+                  <Switch checked={cat.showOnHome !== false} onCheckedChange={(showOnHome) => update({ showOnHome })} />
+                  Show on the homepage
+                </label>
+                <p className="text-xs text-muted-foreground">ID: {cat.id} · {cats.length} cats in the cafe</p>
+              </div>
+            </div>
+
+            <div className="grid gap-3">
+              <div className="flex items-end justify-between gap-3">
+                <div>
+                  <Label>Gallery</Label>
+                  <p className="text-xs text-muted-foreground">These photos appear on the Our Cats page.</p>
+                </div>
+                <Badge variant="secondary">{sortedPhotos(cat).length} photos</Badge>
+              </div>
+              <ImageDropzone busy={uploading} onFiles={(files) => uploadFiles(files)} />
+              {sortedPhotos(cat).length ? (
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                  {sortedPhotos(cat).map((photo, index) => {
+                    const isProfile = cat.profile?.id === photo.id || cat.profileUrl === photo.url;
+                    return (
+                      <figure key={photo.id || photo.url} className="group relative overflow-hidden rounded-xl border bg-card">
+                        <img src={photo.url} alt="" className="aspect-square w-full object-cover" />
+                        {isProfile ? (
+                          <Badge className="absolute top-2 left-2">Profile</Badge>
+                        ) : null}
+                        <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-1 bg-black/45 p-2 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+                          <div className="flex gap-1">
+                            <Button type="button" size="icon-xs" variant="secondary" onClick={() => movePhoto(index, -1)} disabled={index === 0}>
+                              <ChevronLeft />
+                            </Button>
+                            <Button
+                              type="button"
+                              size="icon-xs"
+                              variant="secondary"
+                              onClick={() => movePhoto(index, 1)}
+                              disabled={index === sortedPhotos(cat).length - 1}
+                            >
+                              <ChevronRight />
+                            </Button>
+                          </div>
+                          <div className="flex gap-1">
+                            <Button type="button" size="icon-xs" variant="secondary" onClick={() => setProfile(photo)} disabled={isProfile}>
+                              <Star />
+                            </Button>
+                            <Button type="button" size="icon-xs" variant="destructive" onClick={() => removePhoto(photo)}>
+                              <Trash2 />
+                            </Button>
+                          </div>
+                        </figcaption>
+                      </figure>
+                    );
+                  })}
+                </div>
+              ) : null}
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <Button variant="outline" className="text-destructive" onClick={() => setConfirmDelete(true)}>
+                <Trash2 />
+                {isNew ? 'Discard' : 'Delete cat'}
+              </Button>
+              <Button className="rounded-full" onClick={save} disabled={saving}>
+                {saving ? <Loader2 className="animate-spin" /> : null}
+                {isNew ? 'Create cat' : 'Save cat'}
+              </Button>
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
+
+      <AlertDialog open={confirmDelete} onOpenChange={setConfirmDelete}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{isNew ? 'Discard this cat?' : `Delete ${cat.name}?`}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {isNew
+                ? 'Uploaded photos for this draft will be removed.'
+                : 'This removes the cat and their photos from the website.'}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction variant="destructive" onClick={removeCat} disabled={removing}>
+              {removing ? 'Deleting…' : 'Delete'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
+  );
+}

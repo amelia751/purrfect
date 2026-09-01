@@ -1,0 +1,18 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isOwner() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email == 'purrfect.vietnam@gmail.com';
+    }
+
+    match /cats/{fileName} {
+      allow read: if true;
+      allow create, update: if isOwner()
+        && request.resource.size < 8 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+      allow delete: if isOwner();
+    }
+  }
+}

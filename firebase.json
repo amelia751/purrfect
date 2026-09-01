@@ -2,5 +2,11 @@
   "firestore": {
     "database": "(default)",
     "rules": "firestore.rules"
-  }
+  },
+  "storage": [
+    {
+      "bucket": "purrfect-development-cats",
+      "rules": "storage.rules"
+    }
+  ]
 }

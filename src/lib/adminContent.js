@@ -25,6 +25,31 @@ export async function saveCatAdmin(id, data) {
   await setDoc(doc(getDb(), 'cats', id), withoutId(data), { merge: true });
 }
 
+export async function addCatAdmin(id, data) {
+  await setDoc(doc(getDb(), 'cats', id), withoutId(data));
+}
+
+export async function deleteCatAdmin(id) {
+  await deleteDoc(doc(getDb(), 'cats', id));
+}
+
+export function slugifyCatName(name) {
+  return String(name || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '')
+    .slice(0, 40);
+}
+
+export function uniqueCatId(name, existingIds) {
+  const base = slugifyCatName(name) || 'cat';
+  if (!existingIds.has(base)) return base;
+  let index = 2;
+  while (existingIds.has(`${base}${index}`)) index += 1;
+  return `${base}${index}`;
+}
+
 export async function loadFaqAdmin() {
   const db = getDb();
   const [sectionsSnap, itemsSnap] = await Promise.all([
