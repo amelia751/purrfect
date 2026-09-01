@@ -106,10 +106,6 @@ function AdminPage() {
             {busy ? 'Opening Google…' : 'Continue with Google'}
           </button>
           {error ? <p className="admin-error">{error}</p> : null}
-          <p className="admin-hint">
-            If Google sign-in is not enabled yet, finish the OAuth steps in Google Cloud
-            and turn on Google in Firebase Authentication.
-          </p>
         </div>
       </div>
     );
