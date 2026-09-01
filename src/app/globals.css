@@ -118,7 +118,19 @@ html.admin-active body {
   .admin-root *::after,
   .admin-login *,
   .admin-login *::before,
-  .admin-login *::after {
+  .admin-login *::after,
+  html.admin-active [data-slot="sheet-content"],
+  html.admin-active [data-slot="sheet-content"] *,
+  html.admin-active [data-slot="sheet-content"] *::before,
+  html.admin-active [data-slot="sheet-content"] *::after,
+  html.admin-active [data-slot="alert-dialog-content"],
+  html.admin-active [data-slot="alert-dialog-content"] *,
+  html.admin-active [data-slot="alert-dialog-content"] *::before,
+  html.admin-active [data-slot="alert-dialog-content"] *::after,
+  html.admin-active [data-slot="select-content"],
+  html.admin-active [data-slot="select-content"] *,
+  html.admin-active [data-slot="select-content"] *::before,
+  html.admin-active [data-slot="select-content"] *::after {
     box-sizing: border-box;
   }
 
@@ -134,7 +146,9 @@ html.admin-active body {
   }
 
   .admin-root img,
-  .admin-login img {
+  .admin-login img,
+  html.admin-active [data-slot="sheet-content"] img,
+  html.admin-active [data-slot="alert-dialog-content"] img {
     display: block;
     max-width: 100%;
   }
@@ -142,7 +156,9 @@ html.admin-active body {
   .admin-root input,
   .admin-root textarea,
   .admin-login input,
-  .admin-login textarea {
+  .admin-login textarea,
+  html.admin-active [data-slot="sheet-content"] input,
+  html.admin-active [data-slot="sheet-content"] textarea {
     font: inherit;
   }
 }

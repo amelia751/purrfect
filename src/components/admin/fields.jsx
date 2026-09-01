@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 
 export function TextField({ id, label, value, onChange, type = 'text', ...props }) {
   return (
-    <div className="grid gap-2">
+    <div className="grid min-w-0 gap-2">
       <Label htmlFor={id}>{label}</Label>
       <Input
         id={id}
@@ -21,7 +21,7 @@ export function TextField({ id, label, value, onChange, type = 'text', ...props 
 
 export function AreaField({ id, label, value, onChange, rows = 4, ...props }) {
   return (
-    <div className="grid gap-2">
+    <div className="grid min-w-0 gap-2">
       <Label htmlFor={id}>{label}</Label>
       <Textarea
         id={id}

@@ -12,6 +12,7 @@ import { Switch } from '@/components/ui/switch';
 import { addCatAdmin, deleteCatAdmin, saveCatAdmin } from '@/lib/adminContent';
 import { catPhotoUrl, runAdminAction, sortedPhotos, withRenumberedPhotos } from '@/lib/adminHelpers';
 import { deleteStoredImage, deleteStoredImages, uploadCatImage } from '@/lib/adminStorage';
+import GenderMark from '../GenderMark';
 import { ConfirmDelete } from './ConfirmDelete';
 import { ImageDropzone } from './ImageDropzone';
 import { TextField } from './fields';
@@ -141,18 +142,18 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
   return (
     <>
       <Sheet open={open} onOpenChange={onOpenChange}>
-        <SheetContent className="flex h-full min-h-0 w-full flex-col gap-0 overflow-hidden p-0 sm:max-w-4xl">
-          <SheetHeader className="shrink-0 border-b pr-12">
+        <SheetContent className="box-border flex h-svh max-h-svh w-full flex-col gap-0 overflow-hidden p-0 sm:max-w-4xl [&_*]:box-border">
+          <SheetHeader className="shrink-0 space-y-1 border-b pr-12">
             <SheetTitle>{isNew ? 'Add a cat' : cat.fullname || cat.name}</SheetTitle>
             <SheetDescription>
               Upload a profile photo and gallery, then save. Changes go live on the website after save.
             </SheetDescription>
           </SheetHeader>
 
-          <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-4 py-6">
-          <div className="grid gap-6">
-            <div className="grid gap-6 min-[680px]:grid-cols-[200px_1fr]">
-              <div className="grid gap-3">
+          <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-5 py-6">
+          <div className="grid gap-8">
+            <div className="grid items-start gap-6 min-[760px]:grid-cols-[200px_minmax(0,1fr)]">
+              <div className="grid min-w-0 gap-3">
                 <Label>Profile photo</Label>
                 <div className="overflow-hidden rounded-2xl border bg-muted">
                   {catPhotoUrl(cat) ? (
@@ -172,20 +173,33 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
                 />
               </div>
 
-              <div className="grid content-start gap-5">
-                <div className="grid gap-4 min-[520px]:grid-cols-2">
+              <div className="@container grid min-w-0 content-start gap-5">
+                <div className="grid grid-cols-1 gap-x-5 gap-y-4 @min-[28rem]:grid-cols-2 [&>*]:min-w-0">
                   <TextField id="cat-name" label="Short name" value={cat.name} onChange={(name) => update({ name })} />
                   <TextField id="cat-full" label="Display name" value={cat.fullname} onChange={(fullname) => update({ fullname })} />
                   <TextField id="cat-species" label="Species" value={cat.species} onChange={(species) => update({ species })} />
-                  <div className="grid gap-2">
+                  <div className="grid min-w-0 gap-2">
                     <Label>Gender</Label>
                     <Select value={cat.gender || undefined} onValueChange={(gender) => update({ gender })}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Choose gender" />
+                      <SelectTrigger className="h-9 w-full min-w-0">
+                        <span className="flex min-w-0 items-center gap-2">
+                          <GenderMark gender={cat.gender} />
+                          <SelectValue placeholder="Choose gender" />
+                        </span>
                       </SelectTrigger>
                       <SelectContent position="popper" className="z-[90]">
-                        <SelectItem value="male">Male</SelectItem>
-                        <SelectItem value="female">Female</SelectItem>
+                        <SelectItem value="male">
+                          <span className="flex items-center gap-2">
+                            <GenderMark gender="male" />
+                            Male
+                          </span>
+                        </SelectItem>
+                        <SelectItem value="female">
+                          <span className="flex items-center gap-2">
+                            <GenderMark gender="female" />
+                            Female
+                          </span>
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -204,7 +218,7 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
                     onChange={(sortOrder) => update({ sortOrder: Number(sortOrder) || 0 })}
                   />
                 </div>
-                <div className="grid gap-2">
+                <div className="grid min-w-0 gap-2">
                   <Label>Status</Label>
                   <Select
                     value={cat.status || 'active'}
@@ -213,7 +227,7 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
                       showOnHome: status === 'in_remembrance' ? false : cat.showOnHome,
                     })}
                   >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="h-9 w-full min-w-0">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent position="popper" className="z-[90]">
@@ -234,13 +248,13 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
               </div>
             </div>
 
-            <div className="grid gap-3">
+            <div className="grid min-w-0 gap-3">
               <div className="flex items-end justify-between gap-3">
-                <div>
+                <div className="min-w-0">
                   <Label>Gallery</Label>
                   <p className="text-xs text-muted-foreground">These photos appear on the Our Cats page.</p>
                 </div>
-                <Badge variant="secondary">{sortedPhotos(cat).length} photos</Badge>
+                <Badge variant="secondary" className="shrink-0">{sortedPhotos(cat).length} photos</Badge>
               </div>
               <ImageDropzone busy={uploading} onFiles={(files) => uploadFiles(files)} />
               {sortedPhotos(cat).length ? (
