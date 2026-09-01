@@ -65,7 +65,7 @@ export function CatsPanel({ cats, setCats }) {
   return (
     <div className="grid gap-6">
       <Tabs defaultValue="cats">
-        <div className="sticky top-0 z-10 -mx-4 mb-1 flex flex-col gap-3 bg-background/95 px-4 py-3 backdrop-blur sm:flex-row sm:items-center sm:justify-between lg:-mx-8 lg:px-8">
+        <div className="sticky top-0 z-10 mb-1 flex flex-col gap-3 border-b border-border/80 bg-background/95 py-3 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
           <TabsList>
             <TabsTrigger value="cats">Cats</TabsTrigger>
             <TabsTrigger value="photos">Photo library</TabsTrigger>
@@ -90,11 +90,11 @@ export function CatsPanel({ cats, setCats }) {
                   key={cat.id}
                   type="button"
                   onClick={() => setEditing(cat)}
-                  className="overflow-hidden rounded-2xl border bg-card text-left shadow-[0_8px_24px_rgba(117,102,89,0.06)] transition-transform hover:-translate-y-0.5"
+                  className="overflow-hidden rounded-2xl border bg-card text-left shadow-[0_8px_24px_rgba(117,102,89,0.06)] transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <div className="aspect-[4/3] bg-muted">
                     {catPhotoUrl(cat) ? (
-                      <img src={catPhotoUrl(cat)} alt="" className="size-full object-cover" />
+                      <img src={catPhotoUrl(cat)} alt={cat.fullname || cat.name} className="size-full object-cover" />
                     ) : (
                       <div className="flex size-full items-center justify-center text-sm text-muted-foreground">No photo</div>
                     )}

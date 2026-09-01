@@ -18,6 +18,7 @@ const TABS = new Set(['store', 'cats', 'faq', 'reviews']);
 
 function AdminPage() {
   const [user, setUser] = useState(null);
+  const [authReady, setAuthReady] = useState(false);
   const [tab, setTab] = useState('store');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
@@ -29,7 +30,10 @@ function AdminPage() {
   const [site, setSite] = useState(null);
   const mainRef = useRef(null);
 
-  useEffect(() => watchAdminUser(setUser), []);
+  useEffect(() => watchAdminUser((next) => {
+    setUser(next);
+    setAuthReady(true);
+  }), []);
 
   useEffect(() => {
     if (!user) return undefined;
@@ -87,6 +91,14 @@ function AdminPage() {
     }
   };
 
+  if (!authReady) {
+    return (
+      <div className="admin-login flex min-h-svh items-center justify-center bg-background">
+        <Skeleton className="h-72 w-full max-w-md rounded-3xl" />
+      </div>
+    );
+  }
+
   if (!user) {
     return (
       <TooltipProvider>
@@ -98,9 +110,9 @@ function AdminPage() {
 
   return (
     <TooltipProvider>
-      <div className="admin-root flex h-dvh max-h-dvh overflow-hidden bg-background font-sans text-foreground">
+      <div className="admin-root flex h-svh max-h-svh items-stretch overflow-hidden bg-background font-sans text-foreground">
         <AdminSidebar tab={tab} onTab={goTab} email={user.email} onSignOut={() => signOutAdmin()} />
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col self-stretch">
           <AdminTopbar
             tab={tab}
             onTab={goTab}

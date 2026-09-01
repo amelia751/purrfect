@@ -57,7 +57,7 @@ export function ReviewsPanel({ reviews, setReviews }) {
 
       {reviews.map((review, index) => (
         <Card key={review.id} className="rounded-2xl shadow-[0_8px_24px_rgba(117,102,89,0.06)]">
-          <CardHeader>
+          <CardHeader className="grid-rows-none">
             <CardTitle>{review.author || 'New review'}</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-4">

@@ -92,7 +92,7 @@ export function FaqPanel({ faq, setFaq }) {
       ))}
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <Select value={sectionId} onValueChange={setSectionId}>
+        <Select value={sectionId || undefined} onValueChange={setSectionId}>
           <SelectTrigger className="w-full sm:w-64">
             <SelectValue placeholder="Add to section" />
           </SelectTrigger>
@@ -112,7 +112,7 @@ export function FaqPanel({ faq, setFaq }) {
 
       {faq.items.map((item, index) => (
         <Card key={item.id} className="rounded-2xl shadow-[0_8px_24px_rgba(117,102,89,0.06)]">
-          <CardHeader>
+          <CardHeader className="grid-rows-none">
             <CardDescription>{faq.sections.find((section) => section.id === item.sectionId)?.title?.en || item.sectionId}</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">

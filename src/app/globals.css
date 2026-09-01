@@ -1,4 +1,4 @@
-@layer theme, components, utilities;
+@layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 @import "tw-animate-css";
@@ -101,9 +101,49 @@ body {
 
 html.admin-active,
 html.admin-active body {
-  height: 100dvh;
-  max-height: 100dvh;
+  height: 100svh;
+  max-height: 100svh;
   overflow: hidden;
+}
+
+@layer base {
+  .admin-root,
+  .admin-login {
+    font-family: var(--font-ubuntu), Ubuntu, ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .admin-root *,
+  .admin-root *::before,
+  .admin-root *::after,
+  .admin-login *,
+  .admin-login *::before,
+  .admin-login *::after {
+    box-sizing: border-box;
+  }
+
+  .admin-root button,
+  .admin-login button {
+    appearance: none;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .admin-root img,
+  .admin-login img {
+    display: block;
+    max-width: 100%;
+  }
+
+  .admin-root input,
+  .admin-root textarea,
+  .admin-login input,
+  .admin-login textarea {
+    font: inherit;
+  }
 }
 
 body {

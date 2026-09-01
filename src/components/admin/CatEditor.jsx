@@ -141,7 +141,7 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
   return (
     <>
       <Sheet open={open} onOpenChange={onOpenChange}>
-        <SheetContent className="flex h-full w-full flex-col gap-0 overflow-hidden p-0 sm:max-w-3xl">
+        <SheetContent className="flex h-full min-h-0 w-full flex-col gap-0 overflow-hidden p-0 sm:max-w-3xl">
           <SheetHeader className="shrink-0 border-b pr-12">
             <SheetTitle>{isNew ? 'Add a cat' : cat.fullname || cat.name}</SheetTitle>
             <SheetDescription>
@@ -179,7 +179,7 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
                   <TextField id="cat-species" label="Species" value={cat.species} onChange={(species) => update({ species })} />
                   <div className="grid gap-2">
                     <Label>Gender</Label>
-                    <Select value={cat.gender || ''} onValueChange={(gender) => update({ gender })}>
+                    <Select value={cat.gender || undefined} onValueChange={(gender) => update({ gender })}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Choose gender" />
                       </SelectTrigger>

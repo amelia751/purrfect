@@ -43,16 +43,18 @@ function NavButtons({ tab, onTab, onNavigate }) {
 
 export function AdminSidebar({ tab, onTab, email, onSignOut }) {
   return (
-    <aside className="hidden h-full w-64 shrink-0 flex-col overflow-y-auto border-r border-sidebar-border bg-sidebar p-5 lg:flex">
-      <div className="mb-6 flex items-center gap-3 px-1">
-        <img src="/purrfect-logo-white.png" alt="" className="size-10 object-contain" />
-        <div>
-          <p className="text-[11px] font-medium tracking-[0.14em] text-muted-foreground uppercase">Purrfect Coffee</p>
-          <p className="font-semibold">Admin</p>
+    <aside className="hidden min-h-0 w-64 shrink-0 flex-col justify-between self-stretch overflow-y-auto border-r border-sidebar-border bg-sidebar p-5 lg:flex">
+      <div>
+        <div className="mb-6 flex items-center gap-3 px-1">
+          <img src="/purrfect-logo-white.png" alt="" className="size-10 object-contain" />
+          <div>
+            <p className="text-[11px] font-medium tracking-[0.14em] text-muted-foreground uppercase">Purrfect Coffee</p>
+            <p className="font-semibold">Admin</p>
+          </div>
         </div>
+        <NavButtons tab={tab} onTab={onTab} />
       </div>
-      <NavButtons tab={tab} onTab={onTab} />
-      <div className="mt-auto">
+      <div className="pt-6">
         <Separator className="mb-4" />
         <p className="mb-3 truncate px-1 text-xs text-muted-foreground">{email}</p>
         <Button variant="outline" className="w-full justify-start rounded-xl" onClick={onSignOut}>
@@ -85,13 +87,17 @@ export function AdminTopbar({ tab, onTab, email, onSignOut, menuOpen, onMenuOpen
         </Button>
       </div>
       <Sheet open={menuOpen} onOpenChange={onMenuOpen}>
-        <SheetContent side="left" className="w-72 overflow-y-auto bg-sidebar">
-          <SheetHeader>
-            <SheetTitle>Admin</SheetTitle>
-          </SheetHeader>
-          <div className="px-2">
-            <NavButtons tab={tab} onTab={onTab} onNavigate={() => onMenuOpen(false)} />
-            <Separator className="my-4" />
+        <SheetContent side="left" className="flex h-full min-h-0 w-72 flex-col justify-between overflow-y-auto bg-sidebar">
+          <div>
+            <SheetHeader>
+              <SheetTitle>Admin</SheetTitle>
+            </SheetHeader>
+            <div className="px-2">
+              <NavButtons tab={tab} onTab={onTab} onNavigate={() => onMenuOpen(false)} />
+            </div>
+          </div>
+          <div className="px-2 pb-2">
+            <Separator className="mb-4" />
             <p className="mb-3 truncate text-xs text-muted-foreground">{email}</p>
             <Button variant="outline" className="w-full justify-start rounded-xl" onClick={onSignOut}>
               <LogOut />

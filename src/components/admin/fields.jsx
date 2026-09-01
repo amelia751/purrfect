@@ -26,6 +26,7 @@ export function AreaField({ id, label, value, onChange, rows = 4, ...props }) {
       <Textarea
         id={id}
         rows={rows}
+        className="max-h-48 resize-y [field-sizing:fixed]"
         value={value ?? ''}
         onChange={(event) => onChange(event.target.value)}
         {...props}
