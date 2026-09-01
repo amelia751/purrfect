@@ -3,25 +3,16 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Loader2, Star, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Switch } from '@/components/ui/switch';
-import { addCatAdmin, deleteCatAdmin, saveCatAdmin, uniqueCatId } from '@/lib/adminContent';
+import { addCatAdmin, deleteCatAdmin, saveCatAdmin } from '@/lib/adminContent';
 import { catPhotoUrl, runAdminAction, sortedPhotos, withRenumberedPhotos } from '@/lib/adminHelpers';
 import { deleteStoredImage, deleteStoredImages, uploadCatImage } from '@/lib/adminStorage';
+import { ConfirmDelete } from './ConfirmDelete';
 import { ImageDropzone } from './ImageDropzone';
 import { TextField } from './fields';
 
@@ -29,7 +20,8 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [removing, setRemoving] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [pendingCatDelete, setPendingCatDelete] = useState(false);
+  const [pendingPhoto, setPendingPhoto] = useState(null);
   const isNew = Boolean(cat?.isNew);
 
   const update = (patch) => onChange({ ...cat, ...patch });
@@ -104,7 +96,7 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
       toast.error(error.message || 'Could not delete this cat.');
     } finally {
       setRemoving(false);
-      setConfirmDelete(false);
+      setPendingCatDelete(false);
     }
   };
 
@@ -121,7 +113,10 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
     update({ profile: photo, profileUrl: photo.url });
   };
 
-  const removePhoto = async (photo) => {
+  const removePhoto = async () => {
+    const photo = pendingPhoto;
+    if (!photo) return;
+    setRemoving(true);
     try {
       await deleteStoredImage(photo.path);
       const photos = sortedPhotos(cat).filter((item) => item.id !== photo.id);
@@ -133,8 +128,11 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
       }
       update(next);
       toast.success('Photo removed.');
+      setPendingPhoto(null);
     } catch (error) {
       toast.error(error.message || 'Could not delete photo.');
+    } finally {
+      setRemoving(false);
     }
   };
 
@@ -245,7 +243,7 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
                             <Button type="button" size="icon-xs" variant="secondary" onClick={() => setProfile(photo)} disabled={isProfile}>
                               <Star />
                             </Button>
-                            <Button type="button" size="icon-xs" variant="destructive" onClick={() => removePhoto(photo)}>
+                            <Button type="button" size="icon-xs" variant="destructive" onClick={() => setPendingPhoto(photo)}>
                               <Trash2 />
                             </Button>
                           </div>
@@ -258,7 +256,7 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <Button variant="outline" className="text-destructive" onClick={() => setConfirmDelete(true)}>
+              <Button variant="outline" className="text-destructive" onClick={() => setPendingCatDelete(true)}>
                 <Trash2 />
                 {isNew ? 'Discard' : 'Delete cat'}
               </Button>
@@ -271,24 +269,36 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
         </SheetContent>
       </Sheet>
 
-      <AlertDialog open={confirmDelete} onOpenChange={setConfirmDelete}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>{isNew ? 'Discard this cat?' : `Delete ${cat.name}?`}</AlertDialogTitle>
-            <AlertDialogDescription>
-              {isNew
-                ? 'Uploaded photos for this draft will be removed.'
-                : 'This removes the cat and their photos from the website.'}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction variant="destructive" onClick={removeCat} disabled={removing}>
-              {removing ? 'Deleting…' : 'Delete'}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmDelete
+        open={pendingCatDelete}
+        onOpenChange={setPendingCatDelete}
+        title={isNew ? 'Discard this cat?' : `Delete ${cat.name}?`}
+        description={
+          isNew
+            ? 'Uploaded photos for this draft will be removed.'
+            : 'This removes the cat and their photos from the website.'
+        }
+        confirmLabel={isNew ? 'Discard' : 'Delete cat'}
+        busy={removing && !pendingPhoto}
+        previewSrc={catPhotoUrl(cat)}
+        onConfirm={removeCat}
+      />
+      <ConfirmDelete
+        open={Boolean(pendingPhoto)}
+        onOpenChange={(open) => {
+          if (!open && !removing) setPendingPhoto(null);
+        }}
+        title="Delete this photo?"
+        description={
+          cat.profile?.id === pendingPhoto?.id || cat.profileUrl === pendingPhoto?.url
+            ? 'This is the profile photo. Another gallery photo will be used if one remains.'
+            : 'This photo will be removed from the gallery and deleted from storage.'
+        }
+        confirmLabel="Delete photo"
+        busy={removing && Boolean(pendingPhoto)}
+        previewSrc={pendingPhoto?.url}
+        onConfirm={removePhoto}
+      />
     </>
   );
 }

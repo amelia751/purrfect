@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { saveCatAdmin } from '@/lib/adminContent';
 import { catPhotoUrl, runAdminAction, sortedPhotos, withRenumberedPhotos } from '@/lib/adminHelpers';
 import { deleteStoredImage, uploadCatImage } from '@/lib/adminStorage';
+import { ConfirmDelete } from './ConfirmDelete';
 import { ImageDropzone } from './ImageDropzone';
 
 function libraryItems(cats) {
@@ -32,6 +33,8 @@ function libraryItems(cats) {
 export function PhotoLibrary({ cats, setCats }) {
   const [filter, setFilter] = useState('all');
   const [uploading, setUploading] = useState(false);
+  const [pendingPhoto, setPendingPhoto] = useState(null);
+  const [removing, setRemoving] = useState(false);
   const items = useMemo(() => libraryItems(cats), [cats]);
   const visible = filter === 'all' ? items : items.filter((item) => item.catId === filter);
 
@@ -80,9 +83,12 @@ export function PhotoLibrary({ cats, setCats }) {
     await saveCat(next, `${item.catName} profile updated.`);
   };
 
-  const removePhoto = async (item) => {
+  const removePhoto = async () => {
+    const item = pendingPhoto;
+    if (!item) return;
     const cat = cats.find((row) => row.id === item.catId);
     if (!cat) return;
+    setRemoving(true);
     try {
       await deleteStoredImage(item.path);
       const photos = sortedPhotos(cat).filter((photo) => photo.id !== item.id);
@@ -93,8 +99,11 @@ export function PhotoLibrary({ cats, setCats }) {
       }
       replaceCat(cat.id, next);
       await saveCat(next, 'Photo deleted.');
+      setPendingPhoto(null);
     } catch (error) {
       toast.error(error.message || 'Could not delete photo.');
+    } finally {
+      setRemoving(false);
     }
   };
 
@@ -134,7 +143,7 @@ export function PhotoLibrary({ cats, setCats }) {
                 <Button type="button" size="icon-xs" variant="secondary" disabled={item.isProfile} onClick={() => setProfile(item)}>
                   <Star />
                 </Button>
-                <Button type="button" size="icon-xs" variant="destructive" onClick={() => removePhoto(item)}>
+                <Button type="button" size="icon-xs" variant="destructive" onClick={() => setPendingPhoto(item)}>
                   <Trash2 />
                 </Button>
               </figcaption>
@@ -146,6 +155,23 @@ export function PhotoLibrary({ cats, setCats }) {
           No photos in this view yet.
         </p>
       )}
+
+      <ConfirmDelete
+        open={Boolean(pendingPhoto)}
+        onOpenChange={(open) => {
+          if (!open && !removing) setPendingPhoto(null);
+        }}
+        title="Delete this photo?"
+        description={
+          pendingPhoto?.isProfile
+            ? `This is ${pendingPhoto.catName}'s profile photo. Another gallery photo will be used if one remains.`
+            : `This photo will be removed from ${pendingPhoto?.catName || 'this cat'} and deleted from storage.`
+        }
+        confirmLabel="Delete photo"
+        busy={removing}
+        previewSrc={pendingPhoto?.url}
+        onConfirm={removePhoto}
+      />
     </div>
   );
 }

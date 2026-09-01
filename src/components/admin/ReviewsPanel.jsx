@@ -2,27 +2,19 @@
 
 import { useState } from 'react';
 import { Loader2, Plus, Trash2 } from 'lucide-react';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { addReviewAdmin, deleteReviewAdmin, saveReviewAdmin } from '@/lib/adminContent';
 import { emptyPair, runAdminAction } from '@/lib/adminHelpers';
+import { ConfirmDelete } from './ConfirmDelete';
 import { BilingualField, TextField } from './fields';
 
 export function ReviewsPanel({ reviews, setReviews }) {
   const [savingId, setSavingId] = useState('');
   const [pendingDelete, setPendingDelete] = useState(null);
+  const [removing, setRemoving] = useState(false);
 
   const update = (index, patch) => {
     const next = [...reviews];
@@ -42,10 +34,16 @@ export function ReviewsPanel({ reviews, setReviews }) {
   };
 
   const removeReview = async () => {
-    if (!pendingDelete) return;
-    await runAdminAction(() => deleteReviewAdmin(pendingDelete.id), 'Review deleted.');
-    setReviews(reviews.filter((review) => review.id !== pendingDelete.id));
-    setPendingDelete(null);
+    const review = pendingDelete;
+    if (!review) return;
+    setRemoving(true);
+    try {
+      await runAdminAction(() => deleteReviewAdmin(review.id), 'Review deleted.');
+      setReviews(reviews.filter((row) => row.id !== review.id));
+      setPendingDelete(null);
+    } finally {
+      setRemoving(false);
+    }
   };
 
   return (
@@ -115,20 +113,21 @@ export function ReviewsPanel({ reviews, setReviews }) {
         </Card>
       ))}
 
-      <AlertDialog open={Boolean(pendingDelete)} onOpenChange={(open) => !open && setPendingDelete(null)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete this review?</AlertDialogTitle>
-            <AlertDialogDescription>It will disappear from the reviews page.</AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction variant="destructive" onClick={removeReview}>
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmDelete
+        open={Boolean(pendingDelete)}
+        onOpenChange={(open) => {
+          if (!open && !removing) setPendingDelete(null);
+        }}
+        title="Delete this review?"
+        description={
+          pendingDelete?.author
+            ? `The review from ${pendingDelete.author} will disappear from the reviews page.`
+            : 'This review will disappear from the reviews page.'
+        }
+        confirmLabel="Delete review"
+        busy={removing}
+        onConfirm={removeReview}
+      />
     </div>
   );
 }

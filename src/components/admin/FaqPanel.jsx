@@ -2,16 +2,6 @@
 
 import { useState } from 'react';
 import { Loader2, Plus, Trash2 } from 'lucide-react';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -22,12 +12,14 @@ import {
   saveFaqSectionAdmin,
 } from '@/lib/adminContent';
 import { emptyPair, runAdminAction } from '@/lib/adminHelpers';
+import { ConfirmDelete } from './ConfirmDelete';
 import { BilingualField } from './fields';
 
 export function FaqPanel({ faq, setFaq }) {
   const [sectionId, setSectionId] = useState(faq.sections[0]?.id || '');
   const [savingId, setSavingId] = useState('');
   const [pendingDelete, setPendingDelete] = useState(null);
+  const [removing, setRemoving] = useState(false);
 
   const updateSection = (index, title) => {
     const sections = [...faq.sections];
@@ -55,10 +47,16 @@ export function FaqPanel({ faq, setFaq }) {
   };
 
   const removeItem = async () => {
-    if (!pendingDelete) return;
-    await runAdminAction(() => deleteFaqItemAdmin(pendingDelete.id), 'Question deleted.');
-    setFaq({ ...faq, items: faq.items.filter((item) => item.id !== pendingDelete.id) });
-    setPendingDelete(null);
+    const item = pendingDelete;
+    if (!item) return;
+    setRemoving(true);
+    try {
+      await runAdminAction(() => deleteFaqItemAdmin(item.id), 'Question deleted.');
+      setFaq({ ...faq, items: faq.items.filter((row) => row.id !== item.id) });
+      setPendingDelete(null);
+    } finally {
+      setRemoving(false);
+    }
   };
 
   return (
@@ -145,20 +143,21 @@ export function FaqPanel({ faq, setFaq }) {
         </Card>
       ))}
 
-      <AlertDialog open={Boolean(pendingDelete)} onOpenChange={(open) => !open && setPendingDelete(null)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete this question?</AlertDialogTitle>
-            <AlertDialogDescription>Guests will no longer see it on the FAQ page.</AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction variant="destructive" onClick={removeItem}>
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmDelete
+        open={Boolean(pendingDelete)}
+        onOpenChange={(open) => {
+          if (!open && !removing) setPendingDelete(null);
+        }}
+        title="Delete this question?"
+        description={
+          pendingDelete?.question?.en
+            ? `“${pendingDelete.question.en}” will disappear from the FAQ page.`
+            : 'Guests will no longer see this question on the FAQ page.'
+        }
+        confirmLabel="Delete question"
+        busy={removing}
+        onConfirm={removeItem}
+      />
     </div>
   );
 }
