@@ -16,7 +16,7 @@ if (!existsSync(keyPath)) {
   throw new Error('Missing GCP service account key. Set GOOGLE_APPLICATION_CREDENTIALS.');
 }
 
-const { catsInfo } = await import(path.join(root, 'src/data/cats.js'));
+const { catsInfo, REMEMBRANCE_SLUGS } = await import(path.join(root, 'src/data/cats.js'));
 const { localReviews } = await import(path.join(root, 'src/data/reviews.js'));
 const en = JSON.parse(readFileSync(path.join(root, 'src/i18n/en.json'), 'utf8'));
 const vi = JSON.parse(readFileSync(path.join(root, 'src/i18n/vi.json'), 'utf8'));
@@ -125,9 +125,9 @@ async function seedCats() {
       species: cat.species,
       dob: cat.DOB,
       bornAt: parseBornAt(cat.DOB),
-      status: 'active',
+      status: REMEMBRANCE_SLUGS.includes(slug) ? 'in_remembrance' : 'active',
       sortOrder: index,
-      showOnHome: true,
+      showOnHome: !REMEMBRANCE_SLUGS.includes(slug),
       profile: profile || null,
       profileUrl: profile?.url || '',
       photos,

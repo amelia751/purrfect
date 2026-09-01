@@ -16,6 +16,8 @@ export const initializeI18n = (language) => {
   };
 
   if (i18n.isInitialized) {
+    i18n.addResourceBundle('en', 'translation', enTranslation, true, true);
+    i18n.addResourceBundle('vi', 'translation', viTranslation, true, true);
     if (language) {
       i18n.changeLanguage(language);
     }

@@ -204,8 +204,30 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
                     onChange={(sortOrder) => update({ sortOrder: Number(sortOrder) || 0 })}
                   />
                 </div>
+                <div className="grid gap-2">
+                  <Label>Status</Label>
+                  <Select
+                    value={cat.status || 'active'}
+                    onValueChange={(status) => update({
+                      status,
+                      showOnHome: status === 'in_remembrance' ? false : cat.showOnHome,
+                    })}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent position="popper" className="z-[90]">
+                      <SelectItem value="active">At the cafe</SelectItem>
+                      <SelectItem value="in_remembrance">In remembrance</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
                 <label className="flex items-center gap-3 text-sm">
-                  <Switch checked={cat.showOnHome !== false} onCheckedChange={(showOnHome) => update({ showOnHome })} />
+                  <Switch
+                    checked={cat.status !== 'in_remembrance' && cat.showOnHome !== false}
+                    onCheckedChange={(showOnHome) => update({ showOnHome })}
+                    disabled={cat.status === 'in_remembrance'}
+                  />
                   Show on the homepage
                 </label>
                 <p className="text-xs text-muted-foreground">ID: {cat.id}</p>

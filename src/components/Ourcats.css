@@ -52,3 +52,45 @@
     height: 200px;
   }
 }
+
+.cat-planet {
+  padding: 72px 32px 80px;
+  background: #fbf2f2;
+  text-align: center;
+}
+
+.cat-planet h2 {
+  margin: 0 0 36px;
+  font-family: var(--font-ubuntu), Ubuntu, sans-serif;
+  color: #756659;
+  font-weight: 600;
+  font-size: clamp(28px, 5vw, 48px);
+  line-height: 1.2;
+}
+
+.cat-planet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.cat-planet-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 18px;
+  background: #f3ebe8;
+}
+
+@media (max-width: 800px) {
+  .cat-planet {
+    padding: 56px 20px 64px;
+  }
+
+  .cat-planet-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}

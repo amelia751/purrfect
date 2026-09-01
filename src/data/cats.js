@@ -76,8 +76,15 @@ export const homepageCats = [
   { profile: '/album/ourcats/profile/cam0.png', gender: 'female', name: 'Cám (Bran)', speice: 'Calico', DOB: 'Born March 15, 2023' },
 ];
 
+export const REMEMBRANCE_SLUGS = ['ho', 'tot', 'tep'];
+
+export function isRemembranceCat(cat) {
+  return (cat.status || (REMEMBRANCE_SLUGS.includes(cat.id || cat.slug) ? 'in_remembrance' : 'active')) === 'in_remembrance';
+}
+
 export function toLocalCat(cat) {
   const slug = cat.name.toLowerCase();
+  const remembrance = REMEMBRANCE_SLUGS.includes(slug);
   return {
     id: slug,
     slug,
@@ -86,7 +93,8 @@ export function toLocalCat(cat) {
     gender: cat.gender,
     species: cat.species,
     dob: cat.DOB,
-    showOnHome: true,
+    status: remembrance ? 'in_remembrance' : 'active',
+    showOnHome: !remembrance,
     profileUrl: cat.profile,
     photos: (cat.imageIds || []).map((id, sortOrder) => ({
       id,

@@ -105,8 +105,8 @@ export function CatsPanel({ cats, setCats }) {
                         <p className="font-semibold">{cat.fullname || cat.name}</p>
                         <p className="text-sm text-muted-foreground">{cat.species || 'Unknown species'}</p>
                       </div>
-                      <Badge variant={cat.showOnHome === false ? 'outline' : 'secondary'}>
-                        {cat.showOnHome === false ? 'Hidden' : 'Home'}
+                      <Badge variant={cat.status === 'in_remembrance' || cat.showOnHome === false ? 'outline' : 'secondary'}>
+                        {cat.status === 'in_remembrance' ? 'Remembrance' : cat.showOnHome === false ? 'Hidden' : 'Home'}
                       </Badge>
                     </div>
                     <p className="text-xs text-muted-foreground">

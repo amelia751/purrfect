@@ -1,15 +1,30 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Header from './Header';
 import Footer from './Footer';
 import CatsDetail from './CatsDetail';
 import FadeImage from './FadeImage';
 import LazyMount from './LazyMount';
-import { localCats } from '@/data/cats';
+import Reveal from './Reveal';
+import { isRemembranceCat, localCats } from '@/data/cats';
 import { fetchCats } from '@/lib/content';
 import './Ourcats.css';
+
+function remembranceImages(cats) {
+  const seen = new Set();
+  const images = [];
+  cats.forEach((cat) => {
+    const urls = [cat.profileUrl, ...(cat.photos || []).map((photo) => photo.url)].filter(Boolean);
+    urls.forEach((url) => {
+      if (seen.has(url)) return;
+      seen.add(url);
+      images.push({ url, alt: cat.fullname || cat.name });
+    });
+  });
+  return images;
+}
 
 function OurCatsPage() {
   const { t } = useTranslation();
@@ -25,6 +40,10 @@ function OurCatsPage() {
     };
   }, []);
 
+  const livingCats = useMemo(() => cats.filter((cat) => !isRemembranceCat(cat)), [cats]);
+  const rememberedCats = useMemo(() => cats.filter(isRemembranceCat), [cats]);
+  const rememberedPhotos = useMemo(() => remembranceImages(rememberedCats), [rememberedCats]);
+
   return (
     <div className="ourcats">
       <Header />
@@ -34,7 +53,7 @@ function OurCatsPage() {
           <h1>{t('menuOptions.ourCats')}</h1>
         </div>
       </div>
-      {cats.map((cat, index) => (
+      {livingCats.map((cat, index) => (
         <LazyMount key={cat.id} eager={index < 2} minHeight={560}>
           <CatsDetail
             profile={cat.profileUrl}
@@ -48,6 +67,26 @@ function OurCatsPage() {
           />
         </LazyMount>
       ))}
+      {rememberedPhotos.length ? (
+        <section className="cat-planet">
+          <Reveal>
+            <h2>{t('catPlanetTitle')}</h2>
+          </Reveal>
+          <div className="cat-planet-grid">
+            {rememberedPhotos.map((photo) => (
+              <FadeImage
+                key={photo.url}
+                className="cat-planet-photo"
+                src={photo.url}
+                alt={photo.alt}
+                optimizeWidth={720}
+                sizes="(max-width: 700px) 46vw, 30vw"
+                fit="cover"
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
       <Footer />
     </div>
   );

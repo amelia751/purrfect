@@ -21,6 +21,7 @@ function mapCat(id, data) {
     species: data.species || '',
     dob: data.dob || '',
     sortOrder: data.sortOrder ?? 0,
+    status: data.status || 'active',
     showOnHome: data.showOnHome !== false,
     profileUrl: profile?.url || data.profileUrl || '',
     photos,

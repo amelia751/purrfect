@@ -31,12 +31,12 @@ const CatInfo = ({ profile, gender, name, species, DOB, delay = 0 }) => {
 };
 
 function CatsProfile() {
-  const [cats, setCats] = useState(localCats);
+  const [cats, setCats] = useState(() => localCats.filter((cat) => cat.showOnHome && cat.status !== 'in_remembrance'));
 
   useEffect(() => {
     let cancelled = false;
     fetchCats().then((next) => {
-      if (!cancelled) setCats(next.filter((cat) => cat.showOnHome));
+      if (!cancelled) setCats(next.filter((cat) => cat.showOnHome && cat.status !== 'in_remembrance'));
     });
     return () => {
       cancelled = true;
