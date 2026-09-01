@@ -11,7 +11,7 @@ export function optimizedImageUrl(src, width, quality = 75, fit = 'contain') {
     url: src,
     w: String(width),
     q: String(quality),
-    fit,
+    fit: fit === 'cover' ? 'contain' : (fit || 'contain'),
   });
 
   return `/.netlify/images?${params}`;
@@ -22,13 +22,14 @@ export function optimizedImageAttrs(src, { width = 1200, sizes, quality = 75, fi
     return { src };
   }
 
-  const steps = WIDTH_STEPS.filter((step) => step <= width);
-  const srcSet = (steps.length ? steps : [width])
+  const steps = [...new Set([...WIDTH_STEPS.filter((step) => step <= width), width])]
+    .sort((a, b) => a - b);
+  const srcSet = steps
     .map((step) => `${optimizedImageUrl(src, step, quality, fit)} ${step}w`)
     .join(', ');
 
   return {
-    src: optimizedImageUrl(src, width, quality),
+    src: optimizedImageUrl(src, width, quality, fit),
     srcSet,
     sizes: sizes || `(max-width: ${width}px) 100vw, ${width}px`,
   };
