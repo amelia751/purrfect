@@ -17,6 +17,7 @@
 *.pem
 .netlify
 .cursor/
+/secrets/
 
 # debug
 npm-debug.log*
