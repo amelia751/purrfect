@@ -3,6 +3,12 @@
     "database": "(default)",
     "rules": "firestore.rules"
   },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default"
+    }
+  ],
   "storage": [
     {
       "bucket": "purrfect-development-cats",

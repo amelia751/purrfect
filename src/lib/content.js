@@ -23,6 +23,7 @@ function mapCat(id, data) {
     sortOrder: data.sortOrder ?? 0,
     status: data.status || 'active',
     showOnHome: data.showOnHome !== false,
+    features: data.features || null,
     profileUrl: profile?.url || data.profileUrl || '',
     photos,
   };

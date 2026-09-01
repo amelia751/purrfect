@@ -30,3 +30,7 @@ Put it in `.env.local` for local development. On Netlify it is set in the site's
 ## Deployment
 
 Netlify builds with `npm run build` and uses the Next.js runtime (`publish = .next`). The site is linked to `amelia751/purrfect` on `main`.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

@@ -15,7 +15,7 @@ export function publicStorageUrl(path) {
   return `https://storage.googleapis.com/${firebaseConfig.storageBucket}/${path}`;
 }
 
-export async function uploadCatImage(file) {
+export async function uploadCatImage(file, { catId } = {}) {
   if (!TYPES.has(file.type)) {
     throw new Error('Use a JPG, PNG, WEBP, or GIF image.');
   }
@@ -29,6 +29,7 @@ export async function uploadCatImage(file) {
   await uploadBytes(storageRef, file, {
     contentType: file.type,
     cacheControl: 'public, max-age=31536000, immutable',
+    customMetadata: catId ? { catId } : undefined,
   });
 
   let url = publicStorageUrl(path);

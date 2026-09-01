@@ -32,7 +32,7 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
     try {
       const uploaded = [];
       for (const file of files) {
-        uploaded.push(await uploadCatImage(file));
+        uploaded.push(await uploadCatImage(file, cat.isNew ? undefined : { catId: cat.id }));
       }
       const photos = [...sortedPhotos(cat)];
       uploaded.forEach((photo) => {
