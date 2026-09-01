@@ -41,3 +41,53 @@
   align-items: center;
   justify-content: center;
 }
+
+.button-container {
+  position: relative;
+  display: inline-block;
+}
+
+.fat-cat {
+  object-fit: contain;
+  height: 90px;
+  display: block;
+}
+
+.control-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  background-color: transparent;
+  color: #756659;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.image-circles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.image-circle {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: #d9cfc8;
+  margin: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.image-circle.active {
+  background-color: #756659;
+  transform: scale(1.15);
+}

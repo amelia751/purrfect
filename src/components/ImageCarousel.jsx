@@ -13,15 +13,24 @@ export default function ImageCarousel({
   optimizeWidth = 900,
   sizes = '(max-width: 800px) 92vw, 38vw',
 }) {
-  const [width, setWidth] = useState(1200);
+  const [width, setWidth] = useState(0);
   const [currentSetIndex, setCurrentSetIndex] = useState(0);
   const dragStartX = useRef(null);
+  const rowRef = useRef(null);
 
   useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const el = rowRef.current;
+    if (!el) return undefined;
+
+    const updateWidth = () => {
+      const next = el.clientWidth || window.innerWidth;
+      setWidth(next);
+    };
+
+    updateWidth();
+    const observer = new ResizeObserver(updateWidth);
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   const imagesPerFrame = getImagesPerFrame(width);
@@ -73,11 +82,11 @@ export default function ImageCarousel({
 
   return (
     <>
-      <div className="img-container carousel-row">
+      <div className="img-container carousel-row" ref={rowRef}>
         {showButtons && (
           <div className="button-container">
             <img className="fat-cat" src="/fat-cat.png" alt="" />
-            <button className="control-btn" onClick={handlePrev} type="button">&lt;</button>
+            <button className="control-btn" onClick={handlePrev} type="button" aria-label="Previous photos">&lt;</button>
           </div>
         )}
         <div
@@ -101,14 +110,18 @@ export default function ImageCarousel({
         {showButtons && (
           <div className="button-container">
             <img className="fat-cat" src="/fat-cat.png" alt="" />
-            <button className="control-btn" onClick={handleNext} type="button">&gt;</button>
+            <button className="control-btn" onClick={handleNext} type="button" aria-label="Next photos">&gt;</button>
           </div>
         )}
       </div>
-      <div className="image-circles">
+      <div className="image-circles" role="tablist" aria-label="Photo pages">
         {[...Array(setCount).keys()].map((setIndex) => (
-          <span
+          <button
             key={setIndex}
+            type="button"
+            role="tab"
+            aria-label={`Photo page ${setIndex + 1}`}
+            aria-selected={setIndex === currentSetIndex}
             className={`image-circle ${setIndex === currentSetIndex ? 'active' : ''}`}
             onClick={() => setCurrentSetIndex(setIndex)}
           />

@@ -35,7 +35,7 @@ function OurCatsPage() {
         </div>
       </div>
       {cats.map((cat, index) => (
-        <LazyMount key={cat.id} eager={index < 2} minHeight={440}>
+        <LazyMount key={cat.id} eager={index < 2} minHeight={560}>
           <CatsDetail
             profile={cat.profileUrl}
             gender={cat.gender}
@@ -43,6 +43,8 @@ function OurCatsPage() {
             species={cat.species}
             DOB={cat.dob}
             images={cat.photos.map((photo) => photo.url)}
+            stripe={index % 2 ? 'even' : 'odd'}
+            priority={index < 2}
           />
         </LazyMount>
       ))}

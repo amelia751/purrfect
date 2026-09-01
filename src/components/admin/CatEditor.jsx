@@ -141,7 +141,7 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
   return (
     <>
       <Sheet open={open} onOpenChange={onOpenChange}>
-        <SheetContent className="flex h-full min-h-0 w-full flex-col gap-0 overflow-hidden p-0 sm:max-w-3xl">
+        <SheetContent className="flex h-full min-h-0 w-full flex-col gap-0 overflow-hidden p-0 sm:max-w-4xl">
           <SheetHeader className="shrink-0 border-b pr-12">
             <SheetTitle>{isNew ? 'Add a cat' : cat.fullname || cat.name}</SheetTitle>
             <SheetDescription>
@@ -151,12 +151,12 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
 
           <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-4 py-6">
           <div className="grid gap-6">
-            <div className="grid gap-4 md:grid-cols-[180px_1fr]">
+            <div className="grid gap-6 min-[680px]:grid-cols-[200px_1fr]">
               <div className="grid gap-3">
                 <Label>Profile photo</Label>
                 <div className="overflow-hidden rounded-2xl border bg-muted">
                   {catPhotoUrl(cat) ? (
-                    <img src={catPhotoUrl(cat)} alt="" className="aspect-square w-full object-cover" />
+                    <img src={catPhotoUrl(cat)} alt={cat.fullname || cat.name} className="aspect-square w-full object-cover" />
                   ) : (
                     <div className="flex aspect-square items-center justify-center text-sm text-muted-foreground">
                       No photo yet
@@ -172,10 +172,10 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
                 />
               </div>
 
-              <div className="grid gap-4">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <TextField id="cat-name" label="Name" value={cat.name} onChange={(name) => update({ name })} />
-                  <TextField id="cat-full" label="Full name" value={cat.fullname} onChange={(fullname) => update({ fullname })} />
+              <div className="grid content-start gap-5">
+                <div className="grid gap-4 min-[520px]:grid-cols-2">
+                  <TextField id="cat-name" label="Short name" value={cat.name} onChange={(name) => update({ name })} />
+                  <TextField id="cat-full" label="Display name" value={cat.fullname} onChange={(fullname) => update({ fullname })} />
                   <TextField id="cat-species" label="Species" value={cat.species} onChange={(species) => update({ species })} />
                   <div className="grid gap-2">
                     <Label>Gender</Label>
@@ -189,7 +189,13 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
                       </SelectContent>
                     </Select>
                   </div>
-                  <TextField id="cat-dob" label="Born" value={cat.dob} onChange={(dob) => update({ dob })} placeholder="Born Dec 19, 2020" />
+                  <TextField
+                    id="cat-dob"
+                    label="Birthday"
+                    value={String(cat.dob || '').replace(/^Born\s+/i, '')}
+                    onChange={(dob) => update({ dob: dob.trim() ? `Born ${dob.replace(/^Born\s+/i, '')}` : '' })}
+                    placeholder="Dec 19, 2020"
+                  />
                   <TextField
                     id="cat-order"
                     label="Display order"
@@ -202,7 +208,7 @@ export function CatEditor({ cat, cats, open, onOpenChange, onChange, onReplace }
                   <Switch checked={cat.showOnHome !== false} onCheckedChange={(showOnHome) => update({ showOnHome })} />
                   Show on the homepage
                 </label>
-                <p className="text-xs text-muted-foreground">ID: {cat.id} · {cats.length} cats in the cafe</p>
+                <p className="text-xs text-muted-foreground">ID: {cat.id}</p>
               </div>
             </div>
 

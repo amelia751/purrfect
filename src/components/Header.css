@@ -108,15 +108,24 @@
   }
 
   .header-lang {
-    width: 100px;
-    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: auto;
+    min-width: 108px;
+    height: auto;
+    min-height: 34px;
     font-size: 16px;
+    line-height: 1.2;
     border: 2px solid #756659;
     border-radius: 30px;
     color: #756659;
     cursor: pointer;
     background: #FFF;
-    padding: 5px;
+    padding: 6px 14px;
+    text-decoration: none;
+    white-space: nowrap;
   }
   
   .nav-bar {
@@ -178,10 +187,10 @@
     }
 
     .header-lang {
-      width: 85px;
-      height: 18px;
-      font-size: 15px;
-      padding: 5px;
+      min-width: 0;
+      min-height: 30px;
+      font-size: 14px;
+      padding: 5px 10px;
     }
 
     .menuOption {
@@ -206,10 +215,10 @@
       margin-left: 0px;
     }
     .header-lang {
-      width: 75px;
-      height: 15px;
+      min-height: 28px;
       font-size: 13px;
-      padding: 3px;}
+      padding: 4px 10px;
+    }
       
       .menuOption {
         margin-right: 20px;
@@ -250,10 +259,9 @@
       margin-right: -10px;
     }
       .header-lang {
-        width: 77px;
-        height: 16px;
-        font-size: 10px;
-        padding: 2px;
+        min-height: 26px;
+        font-size: 12px;
+        padding: 4px 8px;
       }
 
       .custom-menu.ant-dropdown-menu {
@@ -279,10 +287,10 @@
     }
 
     .header-lang {
-      width: 64px;
-      height: 14px;
-      font-size: 9px;
-      padding: 1px;}
+      min-height: 24px;
+      font-size: 11px;
+      padding: 3px 8px;
+    }
       
   }
 
