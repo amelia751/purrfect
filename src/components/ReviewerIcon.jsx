@@ -9,33 +9,33 @@ const FACES = [
 
 function CatFace({ fur, mood }) {
   return (
-    <g fill={fur}>
-      <ellipse cx="20" cy="22" rx="11" ry="10" />
-      <path d="M11.5 16.5 8 9.5 16 13.5z" />
-      <path d="M28.5 16.5 32 9.5 24 13.5z" />
+    <g>
+      <path d="M10 17.5 6.2 8.2 17 14z" fill={fur} />
+      <path d="M30 17.5 33.8 8.2 23 14z" fill={fur} />
+      <ellipse cx="20" cy="23" rx="13" ry="12" fill={fur} />
       {mood === 'sleepy' ? (
         <>
-          <path d="M14.6 21.4c1.4.9 2.8.9 4.2 0" fill="none" stroke="#3a2f2a" strokeWidth="0.85" strokeLinecap="round" />
-          <path d="M21.2 21.4c1.4.9 2.8.9 4.2 0" fill="none" stroke="#3a2f2a" strokeWidth="0.85" strokeLinecap="round" />
+          <path d="M13.2 22.4c2 1.4 4.2 1.4 6.2 0" fill="none" stroke="#fff8f4" strokeWidth="1.3" strokeLinecap="round" />
+          <path d="M20.6 22.4c2 1.4 4.2 1.4 6.2 0" fill="none" stroke="#fff8f4" strokeWidth="1.3" strokeLinecap="round" />
         </>
       ) : (
         <>
-          <circle cx="16.4" cy="21.2" r="1.15" fill="#fff" />
-          <circle cx="23.6" cy="21.2" r="1.15" fill="#fff" />
-          <circle cx="16.6" cy="21.4" r="0.55" fill="#3a2f2a" />
-          <circle cx="23.8" cy="21.4" r="0.55" fill="#3a2f2a" />
+          <circle cx="15.4" cy="21.6" r="1.7" fill="#fff8f4" />
+          <circle cx="24.6" cy="21.6" r="1.7" fill="#fff8f4" />
+          <circle cx="15.7" cy="21.8" r="0.7" fill="#3a2f2a" />
+          <circle cx="24.9" cy="21.8" r="0.7" fill="#3a2f2a" />
         </>
       )}
-      <circle cx="20" cy="23" r="0.45" fill="#3a2f2a" />
-      <path d="M20 23.2c.7.7 1.5.7 2.2 0" fill="none" stroke="#3a2f2a" strokeWidth="0.7" strokeLinecap="round" />
+      <circle cx="20" cy="24.4" r="0.7" fill="#3a2f2a" />
+      <path d="M20 24.7c1 .9 2.1.9 3.1 0" fill="none" stroke="#3a2f2a" strokeWidth="0.85" strokeLinecap="round" />
       {mood === 'blush' && (
         <>
-          <ellipse cx="14.2" cy="24.4" rx="1.5" ry="0.8" fill="#f3cfce" opacity="0.9" />
-          <ellipse cx="25.8" cy="24.4" rx="1.5" ry="0.8" fill="#f3cfce" opacity="0.9" />
+          <ellipse cx="13.4" cy="25.8" rx="2" ry="1" fill="#f3cfce" />
+          <ellipse cx="26.6" cy="25.8" rx="2" ry="1" fill="#f3cfce" />
         </>
       )}
       {mood === 'heart' && (
-        <path d="M31.2 12.2c0-1.1.9-1.8 1.8-1.8s1.8.7 1.8 1.8c0 1.8-3.6 3.4-3.6 3.4S31.2 14 31.2 12.2z" fill="#f3cfce" />
+        <path d="M29.8 11.6c0-1.3 1-2.1 2.1-2.1s2.1.8 2.1 2.1c0 2.1-4.2 3.9-4.2 3.9s-4.2-1.8-4.2-3.9c0-1.3 1-2.1 2.1-2.1s2.1.8 2.1 2.1z" fill="#f3cfce" />
       )}
     </g>
   );
