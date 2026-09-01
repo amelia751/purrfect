@@ -1,29 +1,35 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isOwner() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email == 'purrfect.vietnam@gmail.com';
+    }
+
     match /cats/{catId} {
       allow read: if true;
-      allow write: if false;
+      allow write: if isOwner();
     }
 
     match /faqSections/{sectionId} {
       allow read: if true;
-      allow write: if false;
+      allow write: if isOwner();
     }
 
     match /faqItems/{itemId} {
       allow read: if true;
-      allow write: if false;
+      allow write: if isOwner();
     }
 
     match /site/{docId} {
       allow read: if true;
-      allow write: if false;
+      allow write: if isOwner();
     }
 
     match /reviews/{reviewId} {
       allow read: if true;
-      allow write: if false;
+      allow write: if isOwner();
     }
 
     match /{document=**} {
