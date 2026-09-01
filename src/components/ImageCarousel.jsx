@@ -10,6 +10,8 @@ export default function ImageCarousel({
   showButtonsMinWidth = 650,
   frameClassName,
   imageClassName,
+  optimizeWidth = 900,
+  sizes = '(max-width: 800px) 92vw, 38vw',
 }) {
   const [width, setWidth] = useState(1200);
   const [currentSetIndex, setCurrentSetIndex] = useState(0);
@@ -56,11 +58,13 @@ export default function ImageCarousel({
     const startIndex = setIndex * imagesPerFrame;
     const endIndex = Math.min(startIndex + imagesPerFrame, images.length);
     return images.slice(startIndex, endIndex).map((image, index) => (
-      <div key={startIndex + index}>
+      <div className="carousel-item" key={startIndex + index}>
         <FadeImage
           className={imageClassName}
           src={image}
           alt={`Image ${startIndex + index + 1}`}
+          optimizeWidth={optimizeWidth}
+          sizes={sizes}
           draggable={false}
         />
       </div>
@@ -69,7 +73,7 @@ export default function ImageCarousel({
 
   return (
     <>
-      <div className="img-container">
+      <div className="img-container carousel-row">
         {showButtons && (
           <div className="button-container">
             <img className="fat-cat" src="/fat-cat.png" alt="" />

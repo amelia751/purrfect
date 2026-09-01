@@ -75,3 +75,26 @@ export const homepageCats = [
   { profile: '/album/ourcats/profile/tam0.png', gender: 'female', name: 'Tấm (Grain)', speice: 'Calico', DOB: 'Born March 15, 2023' },
   { profile: '/album/ourcats/profile/cam0.png', gender: 'female', name: 'Cám (Bran)', speice: 'Calico', DOB: 'Born March 15, 2023' },
 ];
+
+export function toLocalCat(cat) {
+  const slug = cat.name.toLowerCase();
+  return {
+    id: slug,
+    slug,
+    name: cat.name,
+    fullname: cat.fullname || cat.name,
+    gender: cat.gender,
+    species: cat.species,
+    dob: cat.DOB,
+    showOnHome: true,
+    profileUrl: cat.profile,
+    photos: (cat.imageIds || []).map((id, sortOrder) => ({
+      id,
+      sortOrder,
+      url: `/album/ourcats/${slug}/${id}.png`,
+    })),
+  };
+}
+
+export const localCats = catsInfo.map(toLocalCat);
+

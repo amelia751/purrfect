@@ -7,7 +7,7 @@ import './Rules.css';
 const RulesDetail = ({ image, description }) => {
   return (
     <div>
-      <FadeImage className="rules-img" src={image} alt="" />
+      <FadeImage className="rules-img" src={image} alt="" optimizeWidth={640} sizes="(max-width: 800px) 42vw, 280px" />
       <p className="rules-description">{description}</p>
     </div>
   );

@@ -8,6 +8,17 @@ import FadeImage from './FadeImage';
 import Reveal from './Reveal';
 import './Concept.css';
 
+function ConceptImage({ src, alt }) {
+  return (
+    <FadeImage
+      src={src}
+      alt={alt}
+      optimizeWidth={1000}
+      sizes="(max-width: 900px) 92vw, 42vw"
+    />
+  );
+}
+
 function ConceptPage() {
   const [screenWidth, setScreenWidth] = useState(1400);
   const { t } = useTranslation();
@@ -33,13 +44,13 @@ function ConceptPage() {
           <p>{t('ccIntro')}</p>
         </div>
         <div className="concept-img-right">
-          <FadeImage src="/album/concept/conceptintro.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptintro.png" alt="Woman and Cat" />
         </div>
       </Reveal>
 
       <Reveal className="concept-content">
         <div className="concept-img-left">
-          <FadeImage src="/album/concept/conceptA.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptA.png" alt="Woman and Cat" />
         </div>
         <div className="concept-text">
           <h2>{t('cctA')}</h2>
@@ -53,13 +64,13 @@ function ConceptPage() {
           <p>{t('ccdB')}</p>
         </div>
         <div className="concept-img-left">
-          <FadeImage src="/album/concept/conceptB.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptB.png" alt="Woman and Cat" />
         </div>
       </Reveal>
 
       <Reveal className="concept-content">
         <div className="concept-img-right">
-          <FadeImage src="/album/concept/conceptC.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptC.png" alt="Woman and Cat" />
         </div>
         <div className="concept-text">
           <h2>{t('cctC')}</h2>
@@ -73,13 +84,13 @@ function ConceptPage() {
           <p>{t('ccdD')}</p>
         </div>
         <div className="concept-img-right">
-          <FadeImage src="/album/concept/conceptD.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptD.png" alt="Woman and Cat" />
         </div>
       </Reveal>
 
       <Reveal className="concept-content">
         <div className="concept-img-left">
-          <FadeImage src="/album/concept/conceptE.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptE.png" alt="Woman and Cat" />
         </div>
         <div className="concept-text">
           <h2>{t('cctE')}</h2>
@@ -93,13 +104,13 @@ function ConceptPage() {
           <p>{t('ccdF')}</p>
         </div>
         <div className="concept-img-right">
-          <FadeImage src="/album/concept/conceptF.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptF.png" alt="Woman and Cat" />
         </div>
       </Reveal>
 
       <Reveal className="concept-content">
         <div className="concept-img-left">
-          <FadeImage src="/album/concept/conceptG.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptG.png" alt="Woman and Cat" />
         </div>
         <div className="concept-text">
           <h2>{t('cctG')}</h2>
@@ -117,7 +128,7 @@ function ConceptPage() {
           <p>{t('ccIntro')}</p>
         </div>
         <div className="concept-img-right">
-          <FadeImage src="/album/concept/conceptintro.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptintro.png" alt="Woman and Cat" />
         </div>
       </Reveal>
 
@@ -127,7 +138,7 @@ function ConceptPage() {
           <p>{t('ccdA')}</p>
         </div>
         <div className="concept-img-left">
-          <FadeImage src="/album/concept/conceptA.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptA.png" alt="Woman and Cat" />
         </div>
       </Reveal>
 
@@ -137,7 +148,7 @@ function ConceptPage() {
           <p>{t('ccdB')}</p>
         </div>
         <div className="concept-img-left">
-          <FadeImage src="/album/concept/conceptB.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptB.png" alt="Woman and Cat" />
         </div>
       </Reveal>
 
@@ -147,7 +158,7 @@ function ConceptPage() {
           <p>{t('ccdC')}</p>
         </div>
         <div className="concept-img-right">
-          <FadeImage src="/album/concept/conceptC.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptC.png" alt="Woman and Cat" />
         </div>
       </Reveal>
 
@@ -157,7 +168,7 @@ function ConceptPage() {
           <p>{t('ccdD')}</p>
         </div>
         <div className="concept-img-right">
-          <FadeImage src="/album/concept/conceptD.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptD.png" alt="Woman and Cat" />
         </div>
       </Reveal>
 
@@ -167,7 +178,7 @@ function ConceptPage() {
           <p>{t('ccdE')}</p>
         </div>
         <div className="concept-img-left">
-          <FadeImage src="/album/concept/conceptE.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptE.png" alt="Woman and Cat" />
         </div>
       </Reveal>
 
@@ -177,7 +188,7 @@ function ConceptPage() {
           <p>{t('ccdF')}</p>
         </div>
         <div className="concept-img-right">
-          <FadeImage src="/album/concept/conceptF.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptF.png" alt="Woman and Cat" />
         </div>
       </Reveal>
 
@@ -187,7 +198,7 @@ function ConceptPage() {
           <p>{t('ccdG')}</p>
         </div>
         <div className="concept-img-left">
-          <FadeImage src="/album/concept/conceptG.png" alt="Woman and Cat" />
+          <ConceptImage src="/album/concept/conceptG.png" alt="Woman and Cat" />
         </div>
       </Reveal>
     </Fragment>
@@ -197,7 +208,7 @@ function ConceptPage() {
     <div className="concept">
       <Header />
       <div className="banner">
-        <FadeImage className="concept-banner" src="/concept.jpeg" alt="Concept" priority />
+        <FadeImage className="concept-banner" src="/concept.jpeg" alt="Concept" priority optimizeWidth={1920} sizes="100vw" fit="cover" />
         <h1>{t('menuOptions.concept')}</h1>
       </div>
       <div className="body">

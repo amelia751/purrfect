@@ -24,7 +24,7 @@ function CatsDetail({ profile, gender, name, species, DOB, images }) {
   return (
     <div ref={ref} className={`cats-detail ${revealClass}`}>
       <div className="cat-main-profile">
-        <FadeImage className="cat-profile" src={profile} alt={name} />
+        <FadeImage className="cat-profile" src={profile} alt={name} optimizeWidth={560} sizes="280px" fit="cover" />
         <h1 className="cat-name">{name}</h1>
         <div className="cat-gender"><GenderIcon /></div>
         <p className="cat-speice">{species}</p>
@@ -36,7 +36,7 @@ function CatsDetail({ profile, gender, name, species, DOB, images }) {
           showButtonsMinWidth={600}
           frameClassName="gallery-img-container"
           imageClassName="gallery-img"
-          getImagesPerFrame={(screenWidth) => (screenWidth <= 600 ? 1 : 2)}
+          getImagesPerFrame={(screenWidth) => (screenWidth <= 800 ? 1 : 2)}
         />
       </div>
     </div>

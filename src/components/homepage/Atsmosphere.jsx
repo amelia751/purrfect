@@ -30,6 +30,8 @@ function Atsmosphere() {
         showButtonsMinWidth={650}
         frameClassName="atsmosphere-img-container"
         imageClassName="atsmosphere-img"
+        optimizeWidth={1400}
+        sizes="(max-width: 650px) 92vw, (max-width: 900px) 46vw, 32vw"
         getImagesPerFrame={(screenWidth) => {
           if (screenWidth <= 650) return 1;
           if (screenWidth <= 900) return 2;

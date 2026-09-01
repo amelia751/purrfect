@@ -18,7 +18,7 @@ function HomePage() {
   return (
     <div className="homepage">
       <Header />
-      <FadeImage className="banner-img" src="/homepage/Banner.JPG" alt="purrfect banner" priority />
+      <FadeImage className="banner-img" src="/homepage/Banner.JPG" alt="purrfect banner" priority optimizeWidth={1920} sizes="100vw" />
       <Reveal>
         <div className="infos">
           <h1>{t('storeInformation')}</h1>

@@ -44,11 +44,21 @@
     margin-bottom: 8px;
   }
 
-  .reviewer-photo {
+  .reviewer-photo,
+  .reviewer-icon {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    margin-right: 8px;
+    margin-right: 10px;
+    flex-shrink: 0;
+    display: inline-flex;
+    overflow: hidden;
+  }
+
+  .reviewer-icon svg {
+    display: block;
+    width: 50px;
+    height: 50px;
   }
   
   .reviewer-name {

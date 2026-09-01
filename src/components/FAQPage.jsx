@@ -6,6 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 import FadeImage from './FadeImage';
 import Reveal from './Reveal';
+import { fetchFaq } from '@/lib/content';
 import './FAQ.css';
 
 function FAQPage() {
@@ -24,7 +25,7 @@ function FAQPage() {
   };
 
   useEffect(() => {
-    const nextFaqs = {
+    const localFaqs = {
       [t('storerules')]: [
         { question: t('SqA'), answer: t('SaA'), isOpen: false },
         { question: t('SqB'), answer: t('SaB'), isOpen: false },
@@ -40,15 +41,37 @@ function FAQPage() {
         { question: t('CqE'), answer: t('CaE'), isOpen: false },
       ],
     };
-    setFaqs(nextFaqs);
+
+    let cancelled = false;
+    setFaqs(localFaqs);
     setActiveSection(t('storerules'));
+
+    fetchFaq(i18n.language === 'en' ? 'en' : 'vi')
+      .then((sections) => {
+        if (cancelled || !sections.length) return;
+        const nextFaqs = {};
+        sections.forEach((section) => {
+          nextFaqs[section.title] = section.items;
+        });
+        setFaqs(nextFaqs);
+        setActiveSection((current) => (
+          sections.some((section) => section.title === current)
+            ? current
+            : sections[0].title
+        ));
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
   }, [i18n.language, t]);
 
   return (
     <div className="faq">
       <Header />
       <div className="faq-banner">
-        <FadeImage className="faq-img" src="/faq-img.png" alt="FAQ" priority />
+        <FadeImage className="faq-img" src="/faq-img.png" alt="FAQ" priority optimizeWidth={1920} sizes="100vw" fit="cover" />
         <h1>{t('menuOptions.faq')}</h1>
       </div>
       <Reveal className="faq-tabs">

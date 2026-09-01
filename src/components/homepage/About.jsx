@@ -14,7 +14,7 @@ function About() {
     <div className="about-us">
       <h1>{t('aboutUsTitle')}</h1>
       <div className="about-info-container">
-        <FadeImage src={getImage()} alt="Price" />
+        <FadeImage src={getImage()} alt="Price" optimizeWidth={800} sizes="(max-width: 900px) 90vw, 30vw" />
         <div className="about-info">
           <p>{t('aboutUsA')}</p>
           <p>{t('aboutUsB')}</p>

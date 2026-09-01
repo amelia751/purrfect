@@ -1,8 +1,10 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import FemaleIcon from '@mui/icons-material/Female';
 import MaleIcon from '@mui/icons-material/Male';
-import { homepageCats } from '@/data/cats';
+import { localCats } from '@/data/cats';
+import { fetchCats } from '@/lib/content';
 import FadeImage from '../FadeImage';
 import { useReveal } from '../Reveal';
 import './CatsProfile.css';
@@ -22,7 +24,7 @@ const CatInfo = ({ profile, gender, name, speice, DOB, delay = 0 }) => {
 
   return (
     <div ref={ref} className={`cat-info ${revealClass}`} style={{ '--reveal-delay': `${delay}ms` }}>
-      <FadeImage className="cat-pics" src={profile} alt={`${name} profile`} />
+      <FadeImage className="cat-pics" src={profile} alt={`${name} profile`} optimizeWidth={560} sizes="280px" fit="cover" />
       <h1 className="cat-names">{name}</h1>
       <div className="cat-genders"><GenderIcon /></div>
       <p className="cat-speices">{speice}</p>
@@ -32,10 +34,30 @@ const CatInfo = ({ profile, gender, name, speice, DOB, delay = 0 }) => {
 };
 
 function CatsProfile() {
+  const [cats, setCats] = useState(localCats);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchCats().then((next) => {
+      if (!cancelled) setCats(next.filter((cat) => cat.showOnHome));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <div className="cats-profiles">
-      {homepageCats.map((cat, index) => (
-        <CatInfo key={cat.name} {...cat} delay={index * 70} />
+      {cats.map((cat, index) => (
+        <CatInfo
+          key={cat.id}
+          profile={cat.profileUrl}
+          gender={cat.gender}
+          name={cat.fullname}
+          speice={cat.species}
+          DOB={cat.dob}
+          delay={index * 70}
+        />
       ))}
     </div>
   );
