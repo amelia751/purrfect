@@ -1,5 +1,6 @@
 import { collection, doc, getDoc, getDocs, orderBy, query } from 'firebase/firestore';
 import { localCats } from '@/data/cats';
+import { localReviews } from '@/data/reviews';
 import { getDb } from './firebase';
 
 function localized(value, language) {
@@ -68,6 +69,35 @@ export async function fetchFaq(language) {
   } catch {
     return [];
   }
+}
+
+export async function fetchReviews(language) {
+  try {
+    const snapshot = await getDocs(query(collection(getDb(), 'reviews'), orderBy('sortOrder')));
+    const reviews = snapshot.docs.map((item) => {
+      const data = item.data();
+      return {
+        id: item.id,
+        author: data.author || '',
+        star: data.star || 5,
+        text: localized(data.text, language),
+        sortOrder: data.sortOrder ?? 0,
+      };
+    }).filter((review) => review.text);
+    return reviews.length ? reviews : localizeReviews(language);
+  } catch {
+    return localizeReviews(language);
+  }
+}
+
+function localizeReviews(language) {
+  return localReviews.map((review) => ({
+    id: review.id,
+    author: review.author,
+    star: review.star,
+    text: localized(review.text, language),
+    sortOrder: review.sortOrder,
+  }));
 }
 
 export async function fetchSiteSettings(language) {

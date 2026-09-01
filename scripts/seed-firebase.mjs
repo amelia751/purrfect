@@ -17,8 +17,10 @@ if (!existsSync(keyPath)) {
 }
 
 const { catsInfo } = await import(path.join(root, 'src/data/cats.js'));
+const { localReviews } = await import(path.join(root, 'src/data/reviews.js'));
 const en = JSON.parse(readFileSync(path.join(root, 'src/i18n/en.json'), 'utf8'));
 const vi = JSON.parse(readFileSync(path.join(root, 'src/i18n/vi.json'), 'utf8'));
+const reviewsOnly = process.argv.includes('--reviews-only');
 
 initializeApp({
   credential: cert(keyPath),
@@ -192,6 +194,19 @@ async function seedFaq() {
   await batch.commit();
 }
 
+async function seedReviews() {
+  const batch = db.batch();
+  for (const review of localReviews) {
+    batch.set(db.collection('reviews').doc(review.id), {
+      author: review.author,
+      star: review.star,
+      sortOrder: review.sortOrder,
+      text: review.text,
+    });
+  }
+  await batch.commit();
+}
+
 async function seedSite() {
   await db.collection('site').doc('settings').set({
     ticketPriceVnd: 99000,
@@ -203,9 +218,15 @@ async function seedSite() {
   });
 }
 
-const cats = await seedCats();
-await seedFaq();
-await seedSite();
-process.stdout.write(
-  `done. stored ${cats.uploaded} images, missing ${cats.missing}, removed ${cats.removed} old files\n`,
-);
+if (reviewsOnly) {
+  await seedReviews();
+  process.stdout.write(`done. seeded ${localReviews.length} reviews\n`);
+} else {
+  const cats = await seedCats();
+  await seedFaq();
+  await seedSite();
+  await seedReviews();
+  process.stdout.write(
+    `done. stored ${cats.uploaded} images, missing ${cats.missing}, removed ${cats.removed} old files, seeded ${localReviews.length} reviews\n`,
+  );
+}

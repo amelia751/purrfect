@@ -2,40 +2,37 @@ const FACES = [
   { bg: '#f3cfce', fur: '#756659', mood: 'blush' },
   { bg: '#fbf2f2', fur: '#c48b78', mood: 'default' },
   { bg: '#efe4dc', fur: '#756659', mood: 'sleepy' },
-  { bg: '#f3cfce', fur: '#8a6a5a', mood: 'heart' },
-  { bg: '#f7e6e6', fur: '#c9a27c', mood: 'blush' },
+  { bg: '#f7e6e6', fur: '#c48b78', mood: 'default' },
+  { bg: '#f3cfce', fur: '#c9a27c', mood: 'blush' },
   { bg: '#efe4dc', fur: '#5f534b', mood: 'default' },
 ];
 
 function CatFace({ fur, mood }) {
   return (
     <g>
-      <path d="M10 17.5 6.2 8.2 17 14z" fill={fur} />
-      <path d="M30 17.5 33.8 8.2 23 14z" fill={fur} />
-      <ellipse cx="20" cy="23" rx="13" ry="12" fill={fur} />
+      <path d="M12.8 16.2 9.6 9.4 17.6 13.8z" fill={fur} />
+      <path d="M27.2 16.2 30.4 9.4 22.4 13.8z" fill={fur} />
+      <ellipse cx="20" cy="22.2" rx="11.2" ry="10.4" fill={fur} />
       {mood === 'sleepy' ? (
         <>
-          <path d="M13.2 22.4c2 1.4 4.2 1.4 6.2 0" fill="none" stroke="#fff8f4" strokeWidth="1.3" strokeLinecap="round" />
-          <path d="M20.6 22.4c2 1.4 4.2 1.4 6.2 0" fill="none" stroke="#fff8f4" strokeWidth="1.3" strokeLinecap="round" />
+          <path d="M14.2 21.8c1.7 1.2 3.6 1.2 5.3 0" fill="none" stroke="#fff8f4" strokeWidth="1.2" strokeLinecap="round" />
+          <path d="M20.5 21.8c1.7 1.2 3.6 1.2 5.3 0" fill="none" stroke="#fff8f4" strokeWidth="1.2" strokeLinecap="round" />
         </>
       ) : (
         <>
-          <circle cx="15.4" cy="21.6" r="1.7" fill="#fff8f4" />
-          <circle cx="24.6" cy="21.6" r="1.7" fill="#fff8f4" />
-          <circle cx="15.7" cy="21.8" r="0.7" fill="#3a2f2a" />
-          <circle cx="24.9" cy="21.8" r="0.7" fill="#3a2f2a" />
+          <circle cx="16.2" cy="21.2" r="1.45" fill="#fff8f4" />
+          <circle cx="23.8" cy="21.2" r="1.45" fill="#fff8f4" />
+          <circle cx="16.45" cy="21.4" r="0.6" fill="#3a2f2a" />
+          <circle cx="24.05" cy="21.4" r="0.6" fill="#3a2f2a" />
         </>
       )}
-      <circle cx="20" cy="24.4" r="0.7" fill="#3a2f2a" />
-      <path d="M20 24.7c1 .9 2.1.9 3.1 0" fill="none" stroke="#3a2f2a" strokeWidth="0.85" strokeLinecap="round" />
+      <circle cx="20" cy="23.4" r="0.55" fill="#3a2f2a" />
+      <path d="M17.3 24.2c1.6 1.35 3.8 1.35 5.4 0" fill="none" stroke="#3a2f2a" strokeWidth="0.75" strokeLinecap="round" />
       {mood === 'blush' && (
         <>
-          <ellipse cx="13.4" cy="25.8" rx="2" ry="1" fill="#f3cfce" />
-          <ellipse cx="26.6" cy="25.8" rx="2" ry="1" fill="#f3cfce" />
+          <ellipse cx="14.3" cy="24.8" rx="1.7" ry="0.85" fill="#f3cfce" />
+          <ellipse cx="25.7" cy="24.8" rx="1.7" ry="0.85" fill="#f3cfce" />
         </>
-      )}
-      {mood === 'heart' && (
-        <path d="M29.8 11.6c0-1.3 1-2.1 2.1-2.1s2.1.8 2.1 2.1c0 2.1-4.2 3.9-4.2 3.9s-4.2-1.8-4.2-3.9c0-1.3 1-2.1 2.1-2.1s2.1.8 2.1 2.1z" fill="#f3cfce" />
       )}
     </g>
   );
