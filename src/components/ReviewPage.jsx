@@ -82,7 +82,6 @@ const reviewsVi = [
     text: 'mèo xinh, ít rụng lông, đồ ăn và nước uống ngon, quán k có mùi hôi và decor quán rất là xinhh nhé   🏻 đây là quán mình ưng nhất trong số các quán cafe mèo mình đã đi . 100 điểm ✨',
   },
   {
-    profile: 'https://lh3.googleusercontent.com/a-/ALV-UjXu5OsYRDjTVfKxiZoNx7yD4juYF8x8cok56xazhULHBA=w120-h120-p-rp-mo-ba2-br100',
     author: 'Itzel Nguyen',
     star: 5,
     text: '89k/ng ăn uống thoải mái. Nhiều board game. Mèo có tên, có in4 rõ ràng, cũng chịu khó phục vụ khách lắm nha các bạn  ',
