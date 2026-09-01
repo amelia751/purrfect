@@ -139,4 +139,44 @@ export const localReviews = [
       vi: 'Các bạn nhân viên dễ thương lịch sự, các bé mèo được chăm sóc kĩ càng và xinh xắn. Gửi xe bên dưới hầm, đi thang máy lên lầu 3 cất giày và lên lầu 4 mua buffet ăn uống và nựng mèo nha. Parking: Bác bảo vệ dễ thương và chu đáo nhiệt tình lắm đó',
     },
   },
+  {
+    id: 'review-15',
+    author: 'Ben Herman',
+    star: 5,
+    sortOrder: 14,
+    text: {
+      en: 'I think this is easily the best animal cafe I’ve been to in HCMC. The place is spotless and comfortable, with both floor seating and table seating. All the cats looked very well-cared for and happy, and there was no animal smell at all. The price of admission is a bit high at 89k, but you get unlimited drinks and a wide variety of snacks. Take the elevator from the basement to floor three, take off your shoes, and continue up the stairs to the 4th floor. Basement parking for motorbikes available.',
+      vi: 'Mình nghĩ đây dễ dàng là quán cà phê thú cưng hay nhất mình từng tới ở Sài Gòn. Quán sạch sẽ, dễ chịu, có chỗ ngồi sàn và chỗ ngồi bàn. Tất cả các bé mèo trông được chăm sóc tốt và vui vẻ, hoàn toàn không có mùi thú. Vé vào hơi cao ở mức 89k, nhưng được nước uống không giới hạn và nhiều loại snack. Đi thang máy từ hầm lên tầng 3, cởi giày, rồi lên cầu thang tới tầng 4. Có gửi xe máy dưới hầm.',
+    },
+  },
+  {
+    id: 'review-16',
+    author: 'Hang Vu',
+    star: 5,
+    sortOrder: 15,
+    text: {
+      en: 'Adorable fur babies. You get unlimited time, unlimited food & drinks for 89k - that’s a bargain for me.',
+      vi: 'Mấy bé lông xù dễ thương quá. Thời gian không giới hạn, đồ ăn uống không giới hạn với 89k — với mình là hời.',
+    },
+  },
+  {
+    id: 'review-17',
+    author: 'T Pham',
+    star: 5,
+    sortOrder: 16,
+    text: {
+      en: 'Always make sure to visit here everytime I’m in town. The place is clean, attentive staffs. And most importantly is all the kittens are also clean, friendly, well dressed haha',
+      vi: 'Lần nào ghé thành phố mình cũng cố qua đây. Quán sạch, nhân viên chu đáo. Quan trọng nhất là mấy bé mèo cũng sạch, thân thiện, còn được mặc đồ dễ thương haha',
+    },
+  },
+  {
+    id: 'review-18',
+    author: 'Kiên Phạm',
+    star: 5,
+    sortOrder: 17,
+    text: {
+      en: 'Very cute and friendly cats with additional board games and junk food. Great place to chill, relax and entertain :3',
+      vi: 'Mèo rất dễ thương và thân thiện, còn có board game và đồ ăn vặt. Chỗ chill, thư giãn và vui chơi rất ổn :3',
+    },
+  },
 ];
