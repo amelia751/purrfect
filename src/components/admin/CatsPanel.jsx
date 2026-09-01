@@ -63,26 +63,26 @@ export function CatsPanel({ cats, setCats }) {
   };
 
   return (
-    <div className="grid gap-6">
-      <Tabs defaultValue="cats">
-        <div className="sticky top-0 z-10 mb-1 flex flex-col gap-3 border-b border-border/80 bg-background/95 py-3 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
-          <TabsList>
+    <div className="flex h-full min-h-0 flex-col">
+      <Tabs defaultValue="cats" className="flex h-full min-h-0 flex-col gap-0">
+        <div className="flex shrink-0 flex-col gap-3 border-b border-border/80 bg-background px-4 py-4 lg:px-8 sm:flex-row sm:items-center sm:justify-between">
+          <TabsList className="h-10">
             <TabsTrigger value="cats">Cats</TabsTrigger>
             <TabsTrigger value="photos">Photo library</TabsTrigger>
           </TabsList>
-          <div className="flex gap-2">
+          <div className="flex min-w-0 items-center gap-2">
             <div className="relative min-w-0 flex-1 sm:w-64">
               <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input className="pl-9" placeholder="Search cats" value={query} onChange={(event) => setQuery(event.target.value)} />
+              <Input className="h-10 pl-9" placeholder="Search cats" value={query} onChange={(event) => setQuery(event.target.value)} />
             </div>
-            <Button className="rounded-full" onClick={startNew}>
+            <Button className="h-10 shrink-0 rounded-full" onClick={startNew}>
               <Plus />
               Add cat
             </Button>
           </div>
         </div>
 
-        <TabsContent value="cats" className="mt-5">
+        <TabsContent value="cats" className="mt-0 min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-4 py-6 pb-10 lg:px-8">
           {filtered.length ? (
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {filtered.map((cat) => (
@@ -123,7 +123,7 @@ export function CatsPanel({ cats, setCats }) {
           )}
         </TabsContent>
 
-        <TabsContent value="photos" className="mt-5">
+        <TabsContent value="photos" className="mt-0 min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-4 py-6 pb-10 lg:px-8">
           <PhotoLibrary cats={cats} setCats={setCats} />
         </TabsContent>
       </Tabs>

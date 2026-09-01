@@ -13,6 +13,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { signInAdmin, signOutAdmin, watchAdminUser } from '@/lib/auth';
 import { loadCatsAdmin, loadFaqAdmin, loadReviewsAdmin, loadSiteAdmin } from '@/lib/adminContent';
+import { cn } from '@/lib/utils';
 
 const TABS = new Set(['store', 'cats', 'faq', 'reviews']);
 
@@ -121,7 +122,15 @@ function AdminPage() {
             menuOpen={menuOpen}
             onMenuOpen={setMenuOpen}
           />
-          <main ref={mainRef} className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-4 py-6 pb-10 lg:px-8">
+          <main
+            ref={mainRef}
+            className={cn(
+              'min-h-0 flex-1 overflow-x-hidden overscroll-contain',
+              !loading && tab === 'cats'
+                ? 'flex flex-col overflow-hidden'
+                : 'overflow-y-auto px-4 py-6 pb-10 lg:px-8',
+            )}
+          >
             {loading ? (
               <div className="grid gap-4">
                 <Skeleton className="h-10 w-48" />
