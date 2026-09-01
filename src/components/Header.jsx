@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
 import { Dropdown, Space } from 'antd';
@@ -37,6 +38,7 @@ function Header() {
   const router = useRouter();
   const [isSticky, setIsSticky] = useState(false);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
@@ -44,6 +46,7 @@ function Header() {
   };
 
   useEffect(() => {
+    setMounted(true);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -51,9 +54,17 @@ function Header() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isMenuVisible ? 'hidden' : '';
+    if (!isMenuVisible) return undefined;
+
+    const html = document.documentElement;
+    const previousHtmlOverflow = html.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
+    html.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+
     return () => {
-      document.body.style.overflow = '';
+      html.style.overflow = previousHtmlOverflow;
+      document.body.style.overflow = previousBodyOverflow;
     };
   }, [isMenuVisible]);
 
@@ -69,16 +80,21 @@ function Header() {
     router.push(path);
   };
 
-  const FullScreenMenu = () => (
-    <div className={`overlay ${isMenuVisible ? 'show' : ''}`} aria-hidden={!isMenuVisible}>
-      <img className="header-logo" src="/purrfect-logo-white.png" alt="purrfect logo" />
-      <MenuOption Icon={SpaIcon} title={t('menuOptions.concept')} onClick={() => go('/concept')} />
-      <MenuOption Icon={PetsIcon} title={t('menuOptions.ourCats')} onClick={() => go('/ourcats')} />
-      <MenuOption Icon={RateReviewIcon} title={t('menuOptions.review')} onClick={() => go('/review')} />
-      <MenuOption Icon={HelpOutlineIcon} title={t('menuOptions.faq')} onClick={() => go('/faq')} />
-      <button className="closeButton" onClick={toggleMenuVisibility} type="button">&times;</button>
-    </div>
-  );
+  const FullScreenMenu = () => {
+    const overlay = (
+      <div className={`overlay ${isMenuVisible ? 'show' : ''}`} aria-hidden={!isMenuVisible}>
+        <img className="header-logo" src="/purrfect-logo-white.png" alt="purrfect logo" />
+        <MenuOption Icon={SpaIcon} title={t('menuOptions.concept')} onClick={() => go('/concept')} />
+        <MenuOption Icon={PetsIcon} title={t('menuOptions.ourCats')} onClick={() => go('/ourcats')} />
+        <MenuOption Icon={RateReviewIcon} title={t('menuOptions.review')} onClick={() => go('/review')} />
+        <MenuOption Icon={HelpOutlineIcon} title={t('menuOptions.faq')} onClick={() => go('/faq')} />
+        <button className="closeButton" onClick={toggleMenuVisibility} type="button">&times;</button>
+      </div>
+    );
+
+    if (!mounted) return null;
+    return createPortal(overlay, document.body);
+  };
 
   return (
     <div className={`header ${isSticky ? 'sticky' : ''}`}>
