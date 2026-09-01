@@ -24,8 +24,8 @@ export const initializeI18n = (language) => {
 
   i18n.use(initReactI18next).init({
     resources,
-    lng: language,
-    fallbackLng: 'vi',
+    lng: language || 'en',
+    fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
     },

@@ -20,7 +20,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="vi" className={ubuntu.variable}>
+    <html lang="en" className={ubuntu.variable}>
       <body>
         <I18nProvider>{children}</I18nProvider>
       </body>
