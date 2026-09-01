@@ -1,33 +1,32 @@
 # Purrfect Coffee
 
-Marketing site for Purrfect Coffee, a cat cafe in Ho Chi Minh City. Built with React, Redux Toolkit and i18next, bundled by [Vite](https://vite.dev/), and deployed to Netlify.
+Marketing site for Purrfect Coffee, a cat cafe in Ho Chi Minh City. Built with Next.js and i18next, deployed to Netlify at [purrfectcoffee.vn](https://purrfectcoffee.vn).
 
-## Available Scripts
-
-In the project directory, you can run:
+## Scripts
 
 ### `npm run dev`
 
-Runs the app in development mode on [http://localhost:5180](http://localhost:5180) with hot module replacement. `npm start` does the same thing.
+Runs the app on [http://localhost:3000](http://localhost:3000).
 
 ### `npm run build`
 
-Builds the app for production to the `dist` folder, minified and with hashed filenames.
+Creates a production build.
 
-### `npm run preview`
+### `npm start`
 
-Serves the contents of `dist` locally so you can check a production build before deploying.
+Serves the production build.
 
 ## Environment variables
 
-The store map needs a Google Maps Embed API key:
+The store map needs a Google Maps Embed API key. Either name works:
 
 ```
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your-key-here
 REACT_APP_GOOGLE_MAPS_API_KEY=your-key-here
 ```
 
-Put it in a `.env` file for local development; on Netlify it is set in the site's environment variables. Vite is configured to expose both `REACT_APP_*` and `VITE_*` prefixes, so either name works.
+Put it in `.env.local` for local development. On Netlify it is set in the site's environment variables.
 
 ## Deployment
 
-Netlify builds with `npm run build` and publishes `dist`. All routes fall back to `index.html` so client-side routing works on refresh.
+Netlify builds with `npm run build` and uses the Next.js runtime (`publish = .next`). The site is linked to `amelia751/purrfect` on `main`.

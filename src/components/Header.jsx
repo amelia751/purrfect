@@ -1,0 +1,111 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useRouter } from 'next/navigation';
+import { Dropdown, Space } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import SpaIcon from '@mui/icons-material/Spa';
+import PetsIcon from '@mui/icons-material/Pets';
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutlineOutlined';
+import { initializeI18n } from '@/i18n';
+import './Header.css';
+
+const MenuOption = ({ Icon, title, onClick }) => {
+  return (
+    <div onClick={onClick} className="menuOption">
+      {Icon && <Icon className="menuOption-icon" />}
+      <p className="menuOption-title">{title}</p>
+    </div>
+  );
+};
+
+const languageMenuItems = [
+  {
+    label: 'Tiếng Việt',
+    key: 'vi',
+  },
+  {
+    label: 'English',
+    key: 'en',
+  },
+];
+
+function Header() {
+  const { t, i18n } = useTranslation();
+  const router = useRouter();
+  const [isSticky, setIsSticky] = useState(false);
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY;
+    setIsSticky(scrollPosition > 0);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const onClick = ({ key }) => {
+    initializeI18n(key);
+    i18n.changeLanguage(key);
+  };
+
+  const toggleMenuVisibility = () => setIsMenuVisible(!isMenuVisible);
+
+  const go = (path) => {
+    setIsMenuVisible(false);
+    router.push(path);
+  };
+
+  const FullScreenMenu = () => (
+    <div className={`overlay ${isMenuVisible ? 'show' : ''}`}>
+      <img className="header-logo" src="/purrfect-logo-white.png" alt="purrfect logo" />
+      <MenuOption Icon={SpaIcon} title={t('menuOptions.concept')} onClick={() => go('/concept')} />
+      <MenuOption Icon={PetsIcon} title={t('menuOptions.ourCats')} onClick={() => go('/ourcats')} />
+      <MenuOption Icon={RateReviewIcon} title={t('menuOptions.review')} onClick={() => go('/review')} />
+      <MenuOption Icon={HelpOutlineIcon} title={t('menuOptions.faq')} onClick={() => go('/faq')} />
+      <button className="closeButton" onClick={toggleMenuVisibility}>&times;</button>
+    </div>
+  );
+
+  return (
+    <div className={`header ${isSticky ? 'sticky' : ''}`}>
+      <div className="header-left">
+        <img
+          className="header-logo"
+          src="/purrfect-logo-white.png"
+          alt="purrfect logo"
+          onClick={() => router.push('/')}
+        />
+        <Dropdown
+          menu={{
+            items: languageMenuItems,
+            onClick,
+            className: 'custom-menu',
+          }}
+        >
+          <a className="header-lang" onClick={(e) => e.preventDefault()}>
+            <Space>
+              {t('header.language')}
+              <DownOutlined />
+            </Space>
+          </a>
+        </Dropdown>
+      </div>
+      <div className="header-right">
+        <div className="menu-container">
+          <img className="fat-cat-img" src="/fat-cat.png" alt="Fat cat" />
+          <button className="menu-button" onClick={toggleMenuVisibility}>Menu</button>
+          {isMenuVisible && <FullScreenMenu />}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Header;
