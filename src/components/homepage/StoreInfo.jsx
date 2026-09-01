@@ -12,10 +12,14 @@ const BasicInfo = ({ title, description }) => {
   );
 };
 
+const MAP_PLACE_QUERY = 'Purrfect Coffee, 8-10 Hoa Tra, Phu Nhuan, Ho Chi Minh City, Vietnam';
+
 function StoreInfo() {
   const { t } = useTranslation();
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
-  const mapSrc = `https://www.google.com/maps/embed/v1/place?q=place_id:Eks4IEhvYSBUcsOgLCBQaMaw4budbmcgNywgUGjDuiBOaHXhuq1uLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZpZXRuYW0iMBIuChQKEgkPxXsCzyh1MRErI-rB-gjFwBAIKhQKEgnLMnoCzyh1MREjRlCpsIkyEA&key=${apiKey}`;
+  const mapSrc = apiKey
+    ? `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(apiKey)}&q=${encodeURIComponent(MAP_PLACE_QUERY)}`
+    : `https://www.google.com/maps?q=${encodeURIComponent(MAP_PLACE_QUERY)}&output=embed`;
 
   return (
     <div className="store-info">
