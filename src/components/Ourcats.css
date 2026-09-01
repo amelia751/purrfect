@@ -2,7 +2,6 @@ body, html {
     margin: 0;
     padding: 0;
     max-width: 100%;
-    overflow-x: hidden; 
 }
 .banner-container {
     position: relative;
@@ -24,9 +23,9 @@ body, html {
     text-align: center; 
     width: 90%; 
     max-width: 700px; 
-    font: Ubuntu;
+    font-family: var(--font-ubuntu), Ubuntu, sans-serif;
     color: #756659;
-    font-weight: 600px;
+    font-weight: 600;
     font-size: 80px;
 }
 

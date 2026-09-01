@@ -26,8 +26,8 @@
 .about-info-container img{
     max-width: 30%;
     height: auto;
-    border-radius: 5px;
-
+    border-radius: 18px;
+    object-fit: cover;
 }
 .about-info {
     padding: 10px;

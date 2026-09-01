@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslation } from 'react-i18next';
+import FadeImage from '../FadeImage';
 import './About.css';
 
 function About() {
@@ -13,7 +14,7 @@ function About() {
     <div className="about-us">
       <h1>{t('aboutUsTitle')}</h1>
       <div className="about-info-container">
-        <img src={getImage()} alt="Price" />
+        <FadeImage src={getImage()} alt="Price" />
         <div className="about-info">
           <p>{t('aboutUsA')}</p>
           <p>{t('aboutUsB')}</p>

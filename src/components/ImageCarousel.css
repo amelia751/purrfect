@@ -1,11 +1,13 @@
 .carousel-viewport {
   overflow: hidden;
   width: 100%;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 0.35s ease;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .carousel-slide {

@@ -34,6 +34,15 @@
     align-items: center; 
     gap: 10px; 
   }
+
+.social-icons a {
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.social-icons a:hover {
+    transform: translateY(-3px);
+    opacity: 0.8;
+}
 .facebook-icon {
     height: 59px;
     width: 59px;

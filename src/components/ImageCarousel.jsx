@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import FadeImage from './FadeImage';
 import './ImageCarousel.css';
 
 export default function ImageCarousel({
@@ -56,7 +57,12 @@ export default function ImageCarousel({
     const endIndex = Math.min(startIndex + imagesPerFrame, images.length);
     return images.slice(startIndex, endIndex).map((image, index) => (
       <div key={startIndex + index}>
-        <img className={imageClassName} src={image} alt={`Image ${startIndex + index + 1}`} />
+        <FadeImage
+          className={imageClassName}
+          src={image}
+          alt={`Image ${startIndex + index + 1}`}
+          draggable={false}
+        />
       </div>
     ));
   };

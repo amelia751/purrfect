@@ -44,11 +44,18 @@ function Header() {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuVisible ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuVisible]);
 
   const onClick = ({ key }) => {
     initializeI18n(key);
@@ -63,13 +70,13 @@ function Header() {
   };
 
   const FullScreenMenu = () => (
-    <div className={`overlay ${isMenuVisible ? 'show' : ''}`}>
+    <div className={`overlay ${isMenuVisible ? 'show' : ''}`} aria-hidden={!isMenuVisible}>
       <img className="header-logo" src="/purrfect-logo-white.png" alt="purrfect logo" />
       <MenuOption Icon={SpaIcon} title={t('menuOptions.concept')} onClick={() => go('/concept')} />
       <MenuOption Icon={PetsIcon} title={t('menuOptions.ourCats')} onClick={() => go('/ourcats')} />
       <MenuOption Icon={RateReviewIcon} title={t('menuOptions.review')} onClick={() => go('/review')} />
       <MenuOption Icon={HelpOutlineIcon} title={t('menuOptions.faq')} onClick={() => go('/faq')} />
-      <button className="closeButton" onClick={toggleMenuVisibility}>&times;</button>
+      <button className="closeButton" onClick={toggleMenuVisibility} type="button">&times;</button>
     </div>
   );
 
@@ -100,8 +107,8 @@ function Header() {
       <div className="header-right">
         <div className="menu-container">
           <img className="fat-cat-img" src="/fat-cat.png" alt="Fat cat" />
-          <button className="menu-button" onClick={toggleMenuVisibility}>Menu</button>
-          {isMenuVisible && <FullScreenMenu />}
+          <button className="menu-button" onClick={toggleMenuVisibility} type="button">Menu</button>
+          <FullScreenMenu />
         </div>
       </div>
     </div>

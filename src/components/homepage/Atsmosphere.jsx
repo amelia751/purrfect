@@ -29,7 +29,7 @@ function Atsmosphere() {
         images={atmosphereImages}
         showButtonsMinWidth={650}
         frameClassName="atsmosphere-img-container"
-        imageClassName="atsmosphere-img-container"
+        imageClassName="atsmosphere-img"
         getImagesPerFrame={(screenWidth) => {
           if (screenWidth <= 650) return 1;
           if (screenWidth <= 900) return 2;

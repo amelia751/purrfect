@@ -1,6 +1,25 @@
+:root {
+  --brown: #756659;
+  --pink: #fbf2f2;
+  --accent: #f3cfce;
+  --radius: 18px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
 body {
   margin: 0;
-  font-family: -apple-system, "system-ui", "Segoe UI", "Noto Sans JP", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  max-width: 100%;
+  overflow-x: clip;
+  background-color: #fff;
+  color-scheme: light;
+}
+
+body {
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -13,4 +32,70 @@ code {
 .app {
   position: relative;
   background-color: rgba(255, 255, 255, 0.9);
+}
+
+.homepage,
+.concept,
+.faq,
+.review,
+.ourcats {
+  animation: page-enter 0.45s ease;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.fade-img {
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+.fade-img.is-loaded {
+  opacity: 1;
+}
+
+.lazy-placeholder {
+  width: 100%;
+  background: linear-gradient(90deg, #fbf2f2 0%, #f3e8e8 45%, #fbf2f2 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes page-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .homepage,
+  .concept,
+  .faq,
+  .review,
+  .ourcats,
+  .reveal,
+  .fade-img,
+  .lazy-placeholder {
+    animation: none;
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
 }

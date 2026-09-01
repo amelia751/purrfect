@@ -3,8 +3,13 @@
   }
   
   
+  .banner {
+    position: relative;
+  }
+
   .concept-banner {
     width: 100%;
+    display: block;
   }
   
   .banner h1 {
@@ -14,7 +19,7 @@
     transform: translate(-50%, -50%);
     font-size: 80px;
     font-weight: 600;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: var(--font-ubuntu), Ubuntu, sans-serif;
   }
 
   .body{
@@ -35,7 +40,7 @@
     margin-right: 50px;
     margin-left: -30px;
     background-color: #fbf2f2;
-
+    border-radius: 18px;
   }
 
 .concept-text h2 {
@@ -67,12 +72,13 @@
 .concept-img-right img {
     max-width: 100%;
     object-fit: contain;
+    border-radius: 18px;
 }
 
 .concept-img-left img {
     max-width: 100%;
     object-fit: contain;
-
+    border-radius: 18px;
 }
 
 @media (max-width: 1400px) {

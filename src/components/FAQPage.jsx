@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Header from './Header';
 import Footer from './Footer';
+import FadeImage from './FadeImage';
+import Reveal from './Reveal';
 import './FAQ.css';
 
 function FAQPage() {
@@ -46,33 +48,34 @@ function FAQPage() {
     <div className="faq">
       <Header />
       <div className="faq-banner">
-        <img className="faq-img" src="/faq-img.png" alt="FAQ" />
+        <FadeImage className="faq-img" src="/faq-img.png" alt="FAQ" priority />
         <h1>{t('menuOptions.faq')}</h1>
       </div>
-      <div className="faq-tabs">
+      <Reveal className="faq-tabs">
         {Object.keys(faqs).map((section) => (
           <button
             key={section}
             className={`tab-button ${activeSection === section ? 'active' : ''}`}
             onClick={() => selectSection(section)}
+            type="button"
           >
             {section}
           </button>
         ))}
-      </div>
-      <div className="faq-content">
+      </Reveal>
+      <Reveal className="faq-content">
         {faqs[activeSection] && faqs[activeSection].map((faq, index) => (
-          <div key={index} className="faq-item">
+          <div key={index} className={`faq-item ${faq.isOpen ? 'open' : ''}`}>
             <div className="faq-question" onClick={() => toggleAnswer(activeSection, index)}>
               {faq.question}
               <span className={`faq-icon ${faq.isOpen ? 'icon-open' : 'icon-closed'}`}>
                 {faq.isOpen ? '—' : '+'}
               </span>
             </div>
-            {faq.isOpen && <div className="faq-answer">{faq.answer}</div>}
+            <div className={`faq-answer ${faq.isOpen ? 'open' : ''}`}>{faq.answer}</div>
           </div>
         ))}
-      </div>
+      </Reveal>
       <Footer />
     </div>
   );

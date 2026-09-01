@@ -30,6 +30,14 @@
   gap: 15px;
 }
 
+.atsmosphere-img {
+  height: 75vh;
+  width: auto;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
 .button-container {
   position: relative;
   display: inline-block;
@@ -60,25 +68,26 @@
   }
   
   .image-circle {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background-color: #999; 
+    background-color: #d9cfc8;
     margin: 0 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease, transform 0.3s ease;
   }
   
   .image-circle.active {
-    background-color: #333; 
+    background-color: #756659;
+    transform: scale(1.15);
   }
 
   @media (max-width: 1600px) {
 
 
-    .atsmosphere-img-container {
-      height: 65vh; 
-
+    .atsmosphere-img-container,
+    .atsmosphere-img {
+      height: 65vh;
     }
 }
 

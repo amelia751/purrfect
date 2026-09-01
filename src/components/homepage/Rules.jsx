@@ -1,12 +1,13 @@
 'use client';
 
 import { useTranslation } from 'react-i18next';
+import FadeImage from '../FadeImage';
 import './Rules.css';
 
 const RulesDetail = ({ image, description }) => {
   return (
     <div>
-      <img className="rules-img" src={image} alt="" />
+      <FadeImage className="rules-img" src={image} alt="" />
       <p className="rules-description">{description}</p>
     </div>
   );

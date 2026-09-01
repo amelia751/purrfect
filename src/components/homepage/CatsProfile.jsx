@@ -3,9 +3,12 @@
 import FemaleIcon from '@mui/icons-material/Female';
 import MaleIcon from '@mui/icons-material/Male';
 import { homepageCats } from '@/data/cats';
+import FadeImage from '../FadeImage';
+import { useReveal } from '../Reveal';
 import './CatsProfile.css';
 
-const CatInfo = ({ profile, gender, name, speice, DOB }) => {
+const CatInfo = ({ profile, gender, name, speice, DOB, delay = 0 }) => {
+  const [ref, revealClass] = useReveal();
   const GenderIcon = () => {
     switch (gender) {
       case 'male':
@@ -18,8 +21,8 @@ const CatInfo = ({ profile, gender, name, speice, DOB }) => {
   };
 
   return (
-    <div className="cat-info">
-      <img className="cat-pics" src={profile} alt={`${name} profile`} />
+    <div ref={ref} className={`cat-info ${revealClass}`} style={{ '--reveal-delay': `${delay}ms` }}>
+      <FadeImage className="cat-pics" src={profile} alt={`${name} profile`} />
       <h1 className="cat-names">{name}</h1>
       <div className="cat-genders"><GenderIcon /></div>
       <p className="cat-speices">{speice}</p>
@@ -31,8 +34,8 @@ const CatInfo = ({ profile, gender, name, speice, DOB }) => {
 function CatsProfile() {
   return (
     <div className="cats-profiles">
-      {homepageCats.map((cat) => (
-        <CatInfo key={cat.name} {...cat} />
+      {homepageCats.map((cat, index) => (
+        <CatInfo key={cat.name} {...cat} delay={index * 70} />
       ))}
     </div>
   );

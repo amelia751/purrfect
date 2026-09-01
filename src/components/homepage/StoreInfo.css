@@ -30,6 +30,16 @@
     padding: 50px;
   }
 
+  .store-map {
+    overflow: hidden;
+    border-radius: 18px;
+  }
+
+  .store-map iframe {
+    border-radius: 18px;
+    display: block;
+  }
+
 .basic-info{
     display: flex;
     flex-direction: row;

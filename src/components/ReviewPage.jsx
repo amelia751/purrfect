@@ -3,6 +3,8 @@
 import { useTranslation } from 'react-i18next';
 import Header from './Header';
 import Footer from './Footer';
+import FadeImage from './FadeImage';
+import Reveal from './Reveal';
 import './Review.css';
 
 const ReviewInfo = ({ profile, author, star, text }) => {
@@ -11,7 +13,7 @@ const ReviewInfo = ({ profile, author, star, text }) => {
   return (
     <div className="review-info">
       <div className="review-head">
-        <img className="reviewer-photo" src={profile} alt={author} />
+        <FadeImage className="reviewer-photo" src={profile} alt={author} />
         <p className="reviewer-name">{author}</p>
       </div>
       <div className="star-rating">
@@ -122,18 +124,19 @@ function ReviewPage() {
     <div className="review">
       <Header />
       <div className="review-banner">
-        <img className="review-img" src="/review-img.png" alt="Review" />
+        <FadeImage className="review-img" src="/review-img.png" alt="Review" priority />
         <h1>{t('menuOptions.review')}</h1>
       </div>
       <div className="review-body">
         {reviews.map((review, index) => (
-          <ReviewInfo
-            key={index}
-            profile={review.profile}
-            author={review.author}
-            star={review.star}
-            text={review.text}
-          />
+          <Reveal key={index} delay={index * 50}>
+            <ReviewInfo
+              profile={review.profile}
+              author={review.author}
+              star={review.star}
+              text={review.text}
+            />
+          </Reveal>
         ))}
       </div>
       <Footer />

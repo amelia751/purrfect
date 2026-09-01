@@ -3,10 +3,13 @@
 import FemaleIcon from '@mui/icons-material/Female';
 import MaleIcon from '@mui/icons-material/Male';
 import ImageCarousel from './ImageCarousel';
+import FadeImage from './FadeImage';
+import { useReveal } from './Reveal';
 import './CatsDetail.css';
 import './homepage/Atsmosphere.css';
 
 function CatsDetail({ profile, gender, name, species, DOB, images }) {
+  const [ref, revealClass] = useReveal();
   const GenderIcon = () => {
     switch (gender) {
       case 'male':
@@ -19,9 +22,9 @@ function CatsDetail({ profile, gender, name, species, DOB, images }) {
   };
 
   return (
-    <div className="cats-detail">
+    <div ref={ref} className={`cats-detail ${revealClass}`}>
       <div className="cat-main-profile">
-        <img className="cat-profile" src={profile} alt={name} />
+        <FadeImage className="cat-profile" src={profile} alt={name} />
         <h1 className="cat-name">{name}</h1>
         <div className="cat-gender"><GenderIcon /></div>
         <p className="cat-speice">{species}</p>
@@ -32,7 +35,7 @@ function CatsDetail({ profile, gender, name, species, DOB, images }) {
           images={images}
           showButtonsMinWidth={600}
           frameClassName="gallery-img-container"
-          imageClassName="atsmosphere-img-container"
+          imageClassName="gallery-img"
           getImagesPerFrame={(screenWidth) => (screenWidth <= 600 ? 1 : 2)}
         />
       </div>
